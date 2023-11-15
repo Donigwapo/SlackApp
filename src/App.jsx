@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.jsx
+
+import { useState, useEffect } from 'react';
+import './App.css';
+import ThemeBtn from './components/ThemeBtn';
+import { ThemeProvider } from './context/theme';
+import { UserProvider } from './context/userContext';
+import DisplayUsername from './components/DisplayUsername';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [themeMode, setThemeMode] = useState('light');
+  const [username, setUsername] = useState('');
 
+  const darkTheme = () => {
+    setThemeMode('dark');
+  };
+
+  const lightTheme = () => {
+    setThemeMode('light');
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // You can add validation and authentication logic here
+    // For simplicity, let's just set the username from the input
+    const enteredUsername = e.target.elements.username.value;
+    setUsername(enteredUsername);
+
+    
+
+  };
+
+  useEffect(() => {
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(themeMode);
+  }, [themeMode]);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+      <UserProvider value={{ username, setUsername }}>
+        <ThemeBtn />
+        <div>
+          <h2>Login</h2>
+          <form onSubmit={handleLogin}>
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit">Submit</button>
+          </form>
+          <DisplayUsername />
+        </div>
+        {/* Your other components */}
+      </UserProvider>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
