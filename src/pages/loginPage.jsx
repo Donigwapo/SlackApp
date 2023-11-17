@@ -1,11 +1,9 @@
-// App.jsx
 
 import { useState, useEffect } from 'react';
-//import './App.css';
-import ThemeBtn from '../components/ThemeBtn';
-import { ThemeProvider } from '../context/theme';
-import { UserProvider } from '../context/userContext';
-import DisplayUsername from '../components/DisplayUsername';
+import ThemeBtn from '@components/ThemeBtn';
+import { ThemeProvider } from '@context/theme';
+import { UserProvider } from '@context/userContext';
+import DisplayUsername from '@components/DisplayUsername';
 
 function LoginPage() {
   const [themeMode, setThemeMode] = useState('light');
@@ -21,13 +19,17 @@ function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // You can add validation and authentication logic here
-    // For simplicity, let's just set the username from the input
+
     const enteredUsername = e.target.elements.username.value;
     setUsername(enteredUsername);
 
     
 
+  };
+  const formStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    // Add other styles as needed
   };
 
   useEffect(() => {
@@ -38,9 +40,14 @@ function LoginPage() {
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
       <UserProvider value={{ username, setUsername }}>
         <ThemeBtn />
-        <div>
-          <h2>Login</h2>
-          <form onSubmit={handleLogin}>
+        <div className="loginContainer">
+          <div className='loginImage'>
+            <img src="src/images/loginPic.png" alt="Working happy ever after."/>
+        
+          </div>
+          <div className='loginForms'>
+          <h2>Sign in to Connectwave</h2>
+          <form onSubmit={handleLogin}style={formStyle}>
             <label htmlFor="username">Username:</label>
             <input type="text" id="username" name="username" required />
 
@@ -49,6 +56,7 @@ function LoginPage() {
 
             <button type="submit">Submit</button>
           </form>
+          </div>
           <DisplayUsername />
         </div>
         {/* Your other components */}

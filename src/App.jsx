@@ -15,6 +15,7 @@ import Resources from '@pages/Resources';
 import Product from '@pages/Product';
 import Features from '@pages/Features';
 import Pricing from '@pages/Pricing';
+import LoginPage from './pages/loginPage';
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
       <Route path='/features' exact element={ <Features />}></Route>
       <Route path='/pricing' exact element={ <Pricing />}></Route>
       <Route path='/resources' exact element={ <Resources />}></Route>
+      <Route path='/loginPage' exact element={ <LoginPage />}></Route>
+      
       </Routes>
       </Router>
     </>

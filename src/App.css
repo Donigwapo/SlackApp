@@ -202,23 +202,35 @@
 
 .btn {
   padding: 8px 20px;
-  outline: #242424;
+  outline: white;
   cursor: pointer;
-  font-weight: 600;
-  border: 10 px solid black;
+  font-weight: 400;
+  border: 10 px solid white;
 }
 
 .btn--primary {
-  background-color: var(--primary);
-  color: #242424;
-  border: 1 px solid black;
+  background-color: transparent;
+  color: white;
+  border: 0.5px solid white;
 }
 
 .btn--outline {
+  background-color: #002855;
   width: 100%;
-  color: black;
+  color: white;
   padding: 0.5rem 1rem;
-  border: 1 px solid black;
+  border: 0.5px solid black;
+  margin-right: 1rem;
+  transition: all 0.3s ease-out;
+}
+
+.btn--outlineBlack {
+  background-color: transparent;
+  color: black;
+  border: 0.5px solid black;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 0.5px solid black;
   margin-right: 1rem;
   transition: all 0.3s ease-out;
 }
@@ -234,18 +246,22 @@
   font-size: 20px;
 }
 
+.btn--medium2 {
+  padding: 8px 20px;
+  margin-top: 2.5vh;
+  font-size: clamp(0.5rem, 1vw, 2rem);
+}
+
 .btn--medium:hover, .btn--large:hover {
   background: #fff;
   color: #242424;
   transition: all 0.3s ease-out;
 }
 
-.hero {
-  background-color: red;
-  display: flex;
-  width: 100%;
-  height: 10vh;
-  /* Add other styles as needed */
+.btn--medium2:hover {
+  background: #002855;
+  color: white;
+  transition: all 0.3s ease-out;
 }
 
 .hero {
@@ -272,4 +288,43 @@
 .description p {
   font-size: 1rem;
   font-weight: 400;
+}
+
+.heroButtonsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loginContainer {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.loginImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 10%;
+  background-color: red;
+  width: 70%;
+}
+
+.loginImage img {
+  border-radius: 10px;
+  height: 40vh;
+  width: 70%;
+}
+
+.loginForms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: blue;
+  width: 50%;
 }/*# sourceMappingURL=App.css.map */

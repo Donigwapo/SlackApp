@@ -13,6 +13,8 @@ export default defineConfig({
       '@components': path.resolve(__dirname, 'src/components'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@sass': path.resolve(__dirname, 'src/sass'),
+      '@context': path.resolve(__dirname, 'src/context'),
+      '@images': path.resolve(__dirname, 'src/images'),
       // Add more aliases as needed
     },
   },

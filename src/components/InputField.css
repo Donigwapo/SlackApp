@@ -1,0 +1,45 @@
+/* InputField.css */
+.input {
+    padding: 8px 30px;
+    outline: none;
+    border: 1px solid #ccc;
+    margin: 8px;
+    border-radius: 20px;
+  }
+  
+  .input--default {
+    background-color: #fff;
+    color: #333;
+    padding: 8px 30px;
+    
+  }
+  
+  .input--transparent {
+    background-color: transparent;
+    color: #333;
+  }
+  
+  .input--blackBorder {
+    background-color: transparent;
+    color: #000;
+  }
+  
+  .input--medium {
+    font-size: 14px;
+  }
+  
+  .input--large {
+    font-size: 18px;
+  }
+  
+  .input--medium2 {
+    font-size: 14px;
+  }
+  
+  .input--medium:hover,
+  .input--large:hover,
+  .input--medium2:hover {
+    background: #eee;
+    transition: all 0.3s ease-out;
+  }
+  

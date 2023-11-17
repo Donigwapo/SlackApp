@@ -1,0 +1,37 @@
+@use "./format" as *;
+
+.loginContainer{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: space-between;
+    //background-color: none;
+  
+  }
+
+  .loginImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding:0 10%;
+  background-color: red;
+  width: 70%;
+  }
+
+  .loginImage img{
+    border-radius: 10px;
+    height: 40vh;
+    width: 70%;
+ 
+  }
+
+  .loginForms{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: blue;
+    width: 50%;
+  }
+  
