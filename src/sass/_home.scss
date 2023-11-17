@@ -1,0 +1,27 @@
+@use "./format" as *;
+.hero{
+    background-image: url("@/images/HeroSection.jpg");
+    background-size: cover;
+    background-position: top;
+    height: 100vh;
+    display: flex;
+    width: 100%;;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .description{
+width: 55%;
+height: 30%;
+font-family: 'Roboto';
+font-weight: 700;
+font-size: 56px;
+text-align: center;
+color: #FFFFFF;
+  }
+
+  .description p{
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
