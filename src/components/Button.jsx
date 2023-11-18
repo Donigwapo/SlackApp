@@ -22,10 +22,24 @@ export const Button = ({
     ? buttonSize 
     : SIZES [0]
 
+    const handleClick = (e) => {
+        if (onClick) {
+          onClick(e);
+        }
+        // Continue with form submission if onClick doesn't preventDefault
+        if (!e.defaultPrevented) {
+          const form = e.target.closest('form');
+          if (form) {
+            form.submit();
+          }
+        }
+      };
+
 return(
+
     <Link to={to} className="btn-mobile">
         <button className={`btn ${checkButtonStyle} ${checkButtonSize}`}
-        onClick={onClick}
+        onClick={handleClick}
         type={type}
         >
             {children}
