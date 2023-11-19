@@ -1,0 +1,48 @@
+/* Dialog.css */
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  z-index: 1000; /* Make sure dialog is above other content */
+}
+.dialog.open {
+  visibility: visible;
+  opacity: 1;
+}
+.dialog-content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.dialog-header {
+  display: flex;
+  justify-content: flex-end;
+}
+.close-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+/* Styling for the button to open the dialog */
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+button:hover {
+  background-color: #e7e7e7;
+}

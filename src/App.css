@@ -5,7 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   list-style: none;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 :root {
@@ -258,7 +258,7 @@
   transition: all 0.3s ease-out;
 }
 
-.btn--medium2:hover {
+.btn--medium2:hover, .btn--outlineBlack:hover {
   background: #002855;
   color: white;
   transition: all 0.3s ease-out;
@@ -288,6 +288,7 @@
 .description p {
   font-size: 1rem;
   font-weight: 400;
+  margin-left: 5rem;
 }
 
 .heroButtonsContainer {
@@ -327,4 +328,319 @@
   flex-direction: column;
   background-color: blue;
   width: 50%;
+}
+
+.bottom-sheet {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 2;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 0;
+  margin-left: 25%;
+  overflow: hidden;
+  transform: translateY(0%);
+  transition: transform 1s ease-in-out;
+  z-index: 1000;
+  color: white;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.bottom-sheet.closed {
+  transition: transform 1s ease-in-out;
+  height: 51px;
+}
+
+.bottom-sheet.half-open {
+  transition: transform 1s ease-in-out;
+  height: 50%;
+}
+
+.bottom-sheet.semi-half-open {
+  transition: transform 1s ease-in-out;
+  height: 25%;
+}
+
+.bottom-sheet.semi-fully-open {
+  transition: transform 1s ease-in-out;
+  height: 75%;
+}
+
+.bottom-sheet.fully-open {
+  transition: transform 1s ease-in-out;
+  height: 100%;
+}
+
+.uparrow:hover {
+  cursor: pointer;
+}
+
+.handle {
+  height: 20px;
+}
+
+.bottom-sheet form label {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.input--default {
+  padding: 5px;
+  font-size: 16px;
+  border-width: 1px;
+  border-color: #CCCCCC;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-style: solid;
+  border-radius: 0px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+}
+
+/* Dialog.css */
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  z-index: 1000; /* Make sure dialog is above other content */
+}
+
+.dialog.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.dialog-content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+/* Styling for the button to open the dialog */
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #e7e7e7;
+}
+
+.labelled-input {
+  display: flex;
+  gap: var(--size-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.warning-message {
+  display: grid;
+  grid-template-columns: var(--size-fluid-3) 1fr;
+  gap: var(--size-3);
+  align-items: center;
+}
+.warning-message > svg {
+  inline-size: 100%;
+  stroke: var(--text-2);
+}
+
+.warning-message p + input {
+  width: 1000%;
+}
+
+.icon-headline {
+  display: flex;
+  gap: var(--size-3);
+  align-items: center;
+}
+.icon-headline > svg {
+  inline-size: 2em;
+  stroke: var(--text-2);
+}
+
+.confirm-button {
+  color: White;
+  background-color: Gray;
+}
+
+html:has(dialog[open][modal-mode=mega]) {
+  overflow: hidden;
+}
+
+dialog {
+  display: grid;
+  align-content: start;
+  background: var(--surface-2);
+  color: var(--text-1);
+  max-inline-size: min(90vw, var(--size-content-3));
+  margin: auto;
+  padding: 0;
+  position: fixed;
+  inset: 0;
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+  z-index: var(--layer-important);
+  overflow: hidden;
+  transition: opacity 0.5s var(--ease-3);
+}
+@media (--motionOK) {
+  dialog {
+    animation: var(--animation-scale-down) forwards;
+    animation-timing-function: var(--ease-squish-3);
+  }
+}
+@media (--OSdark) {
+  dialog {
+    border-block-start: var(--border-size-1) solid var(--surface-3);
+  }
+}
+@media (--md-n-below) {
+  dialog[modal-mode=mega] {
+    margin-block-end: 0;
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+  }
+}
+@media (--md-n-below) and (--motionOK) {
+  dialog[modal-mode=mega] {
+    animation: var(--animation-slide-out-down) forwards;
+    animation-timing-function: var(--ease-squish-2);
+  }
+}
+dialog:not([open]) {
+  pointer-events: none;
+  opacity: 0;
+}
+dialog[modal-mode=mega]::backdrop {
+  -webkit-backdrop-filter: blur(25px);
+          backdrop-filter: blur(25px);
+}
+dialog[modal-mode=mini]::backdrop {
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+}
+dialog::backdrop {
+  transition: -webkit-backdrop-filter 0.5s ease;
+  transition: backdrop-filter 0.5s ease;
+  transition: backdrop-filter 0.5s ease, -webkit-backdrop-filter 0.5s ease;
+}
+dialog[loading] {
+  visibility: hidden;
+}
+@media (--motionOK) {
+  dialog[open] {
+    animation: var(--animation-slide-in-up) forwards;
+  }
+}
+dialog > form {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: start;
+  max-block-size: 80vh;
+  max-block-size: 80dvb;
+}
+dialog > form > article {
+  overflow-y: auto;
+  max-block-size: 100%; /* safari */
+  overscroll-behavior-y: contain;
+  display: grid;
+  justify-items: flex-start;
+  gap: var(--size-3);
+  box-shadow: var(--shadow-2);
+  z-index: var(--layer-1);
+  padding-inline: var(--size-5);
+  padding-block: var(--size-3);
+}
+@media (--OSlight) {
+  dialog > form > article {
+    background: var(--surface-1);
+  }
+  dialog > form > article::-webkit-scrollbar {
+    background: var(--surface-1);
+  }
+}
+@media (--OSdark) {
+  dialog > form > article {
+    border-block-start: var(--border-size-1) solid var(--surface-3);
+  }
+}
+dialog > form > header {
+  display: flex;
+  gap: var(--size-3);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-block: var(--size-3);
+  padding-inline: var(--size-5);
+}
+dialog > form > header > button {
+  border-radius: var(--radius-round);
+  padding: 0.75ch;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  place-items: center;
+  stroke: currentColor;
+  stroke-width: 3px;
+}
+dialog > form > footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-inline: var(--size-5);
+  padding-block: var(--size-3);
+}
+dialog > form > footer > menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  padding-inline-start: 0;
+}
+dialog > form > footer > menu:only-child {
+  margin-inline-start: auto;
+}
+@media (max-width: 410px) {
+  dialog > form > footer > menu button[type=reset] {
+    display: none;
+  }
+}
+dialog > form > :is(header, footer) {
+  background-color: var(--surface-2);
+}
+@media (--OSdark) {
+  dialog > form > :is(header, footer) {
+    background-color: var(--surface-1);
+  }
 }/*# sourceMappingURL=App.css.map */

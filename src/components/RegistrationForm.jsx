@@ -1,6 +1,7 @@
 import { useState } from 'react';
 //import { Button } from './Button';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const RegistrationForm = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setFormData({
@@ -59,6 +61,7 @@ const RegistrationForm = () => {
       // Check if the email and password are saved
       if (result && result.data.uid === formData.email) {
         console.log('Email and password saved successfully:', result);
+        navigate('/message-panel');
       } else {
         console.error('Email and password not saved:', result);
       }
@@ -95,7 +98,7 @@ const RegistrationForm = () => {
           onClick={inputFieldClick}
         />
 
-        <button type="submit">Register</button>
+        <button type="submit" className='btn--outlineBlack'>Register</button>
       </form>
 
       {loading && <p>Loading...</p>}

@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 // BottomSheet.js
-
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import "./BottomSheet.css";
+
 import RegistrationForm from "./RegistrationForm";
 
 const BottomSheet = ({ handle_modal, triggerSemiFullyOpen }) => {
