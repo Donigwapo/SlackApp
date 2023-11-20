@@ -82,10 +82,10 @@ const RegistrationForm = () => {
     <div>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onClick={inputFieldClick} onChange={handleChange} required className="input--default" />
+        <input type="email" name="email" value={formData.email} onClick={inputFieldClick} onChange={handleChange} required  />
 
         <label>Password:</label>
-        <input type="password" name="password" value={formData.password} onClick={inputFieldClick} onChange={handleChange} required className="input--default"/>
+        <input type="password" name="password" value={formData.password} onClick={inputFieldClick} onChange={handleChange} required />
 
         <label>Confirm Password:</label>
         <input
@@ -94,7 +94,6 @@ const RegistrationForm = () => {
           value={formData.password_confirmation}
           onChange={handleChange}
           required
-          className="input--default"
           onClick={inputFieldClick}
         />
 

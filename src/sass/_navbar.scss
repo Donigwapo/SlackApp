@@ -252,24 +252,30 @@
 }
 
 .btn--outline{
-    background-color: #002855;
   width: 100%;
-  color: white;
   padding: 0.5rem 1rem;
   border: .5px solid black;   
   margin-right: 1rem;   
   transition: all 0.3s ease-out;
+  color: var(--blue-0);
+  background-color: var(--blue-5);
 }
 
 .btn--outlineBlack{
     background-color: transparent;
-    color: black;
-    border: .5px solid black; 
+    color: var(--blue-9);
   width: 100%;
   padding: 0.5rem 1rem;
-  border: .5px solid black;   
   margin-right: 1rem;
   transition: all 0.3s ease-out;
+  border: var(--border-size-2) solid var(--blue-5);
+  background-color: transparent;
+  border-radius: var(--radius-2);
+  &:hover, &:focus {
+    cursor: pointer;
+    color: var(--blue-0);
+    background-color: var(--blue-5);
+  }
 
 }
 
@@ -291,14 +297,18 @@
   }
 
 .btn--medium:hover, .btn--large:hover {
-  background: #fff;
-  color: #242424;
   transition: all 0.3s ease-out;
+  background-color: transparent;
+  color: var(--blue-9);
+  border: var(--border-size-2) solid var(--blue-5);
+  
 }
 
-.btn--medium2:hover, .btn--outlineBlack:hover{
-    background: #002855;
-    color: white;
-    transition: all 0.3s ease-out;
+.btn--medium2{
+    &:hover, &:focus {
+        cursor: pointer;
+        color: var(--blue-0);
+        background-color: var(--blue-5);
+      }
 }
 

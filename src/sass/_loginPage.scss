@@ -71,10 +71,7 @@
       cursor: pointer;
       color: var(--blue-0);
       background-color: var(--blue-5);
-      
-      @at-root .light #{&} {
-        text-shadow: 0 1px 0 var(--blue-8);
-      }
+
     }
   }
   .submit img {
