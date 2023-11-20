@@ -14,24 +14,74 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding:0 10%;
-  background-color: red;
-  width: 70%;
+  width: 100%;
+
   }
 
   .loginImage img{
     border-radius: 10px;
-    height: 40vh;
-    width: 70%;
+    height: 50vh;
+    width: 90%;
+    padding-left: 5rem;
+    padding-right: 5rem;
+
  
   }
 
   .loginForms{
     display: flex;
-    justify-content: center;
-    align-items: center;
+   align-items: center;
+  justify-content: center;
     flex-direction: column;
-    background-color: blue;
-    width: 50%;
+    width: 70%;
+   
+    padding-right: 20rem;
   }
+
+  .inputStyle{
+  width:120%;
+  height: 3rem;
+  }
+
+  label{
+    color:black
+  }
+
+  h4{
+    color: black;
+    font-weight: 500;
+  }
+
+
+
+  .submit {
+    position: relative;
+  display: inline-flex;
+  align-items: center;
+    white-space: nowrap;
+    font-size: var(--font-size-fluid-1);
+    font-weight: var(--font-weight-7);
+    width:120%;
+    color: var(--blue-9);
+    border: var(--border-size-2) solid var(--blue-5);
+    background-color: transparent;
+    border-radius: var(--radius-2);
+    margin: 0 auto;
+    &:hover, &:focus {
+      cursor: pointer;
+      color: var(--blue-0);
+      background-color: var(--blue-5);
+      
+      @at-root .light #{&} {
+        text-shadow: 0 1px 0 var(--blue-8);
+      }
+    }
+  }
+  .submit img {
+    margin-left: 100px; /* Adjust the margin as needed for proper spacing */
   
+  }
+
+  .custom-svg {
+    fill: #ff0000; /* Change this to the desired color */
+  }

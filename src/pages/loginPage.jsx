@@ -1,9 +1,9 @@
 
 import { useState, useEffect } from 'react';
-import ThemeBtn from '@components/ThemeBtn';
+//import ThemeBtn from '@components/ThemeBtn';
 import { ThemeProvider } from '@context/theme';
 import { UserProvider } from '@context/userContext';
-import DisplayUsername from '@components/DisplayUsername';
+//import DisplayUsername from '@components/DisplayUsername';
 
 function LoginPage() {
   const [themeMode, setThemeMode] = useState('light');
@@ -29,7 +29,8 @@ function LoginPage() {
   const formStyle = {
     display: 'flex',
     flexDirection: 'column',
-    // Add other styles as needed
+    lineHeight: '4rem',
+  
   };
 
   useEffect(() => {
@@ -37,6 +38,8 @@ function LoginPage() {
     document.body.classList.add(themeMode);
   }, [themeMode]);
   
+ 
+
   return (
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
       <UserProvider value={{ username, setUsername }}>
@@ -48,21 +51,20 @@ function LoginPage() {
           </div>
           <div className='loginForms'>.
           
-          <h2>Sign in to Connectwave</h2>
-          <ThemeBtn />
           <form onSubmit={handleLogin}style={formStyle}>
+          <h4>Sign in to Connectwave</h4>
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" required />
-
+            <input type="text" id="username" name="username" required className='inputStyle'/>
             <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-
-            <button type="submit">Submit</button>
-          
-          </form>
+            <input type="password" id="password" name="password" required className='inputStyle'/>
+            <button style={{ visibility: 'hidden', opacity: 0, height: '20px'}}>Submit</button>
+            <button type="submit" className="submit">Submit
+            <img src="https://www.svgrepo.com/download/166617/right-arrow.svg"  style={{fill: 'red'}} alt="Right Arrow" width="50" height="50" />
+            </button>
+          </form> 
           
           </div>
-          <DisplayUsername />
+        
         </div>
         {/* Your other components */}
       </UserProvider>
