@@ -94,9 +94,10 @@ dialog {
     backdrop-filter: none;
   }
 
-  &::backdrop {
-    transition: backdrop-filter .5s ease;
-  }
+    &::backdrop {
+      transition: backdrop-filter .5s ease;
+      
+    }
 
   &[loading] {
     visibility: hidden;

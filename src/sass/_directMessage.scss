@@ -1,0 +1,34 @@
+.pmContainer {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-color: gray;
+    flex-direction: column;
+}
+
+.headerDirect {
+    height: 7vh;
+    width: 100%;
+    background-color: black;
+    border-bottom: 1px solid white;
+}
+
+.headerTo {
+    height: 7vh;
+    width: 100%;
+    background-color: rgb(3, 0, 0);
+    border-bottom: 1px solid white;
+}
+
+.composeMessage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid white;
+    width: 50vw;
+    height: 10vh;
+    background-color: red;
+    margin-top: auto; /* Add this line to push it to the bottom */
+    margin-bottom: 5rem;
+    margin-left: 5rem;
+}

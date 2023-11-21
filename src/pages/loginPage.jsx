@@ -1,6 +1,6 @@
 
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
 
@@ -12,6 +12,40 @@ function LoginPage() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    // Retrieve authentication information from local storage when the component mounts
+    const storedAccessToken = localStorage.getItem('access-token');
+    const storedClient = localStorage.getItem('client');
+    const storedExpiry = localStorage.getItem('expiry');
+    const storedUid = localStorage.getItem('uid');
+
+    // Check if all values are present in local storage
+    if (storedAccessToken && storedClient && storedExpiry && storedUid) {
+      // Set the authentication information in the state
+      setUserData({
+        data: {
+          id: null,
+          email: null,
+          provider: null,
+          uid: storedUid,
+          allow_password_change: false,
+          name: null,
+          nickname: null,
+          image: null,
+        },
+      });
+
+      // Log in console for verification
+      console.log('Authentication information retrieved from local storage:', {
+        accessToken: storedAccessToken,
+        client: storedClient,
+        expiry: storedExpiry,
+        uid: storedUid,
+      });
+    }
+  }, []); 
 
   const handleChange = (e) => {
     setLoginData({
@@ -41,8 +75,7 @@ function LoginPage() {
 
       const result = await response.json();
       setUserData(result);
-
-      console.log('Login successful:', result);
+      navigate('/message-panel');
 
       // Access the authentication headers
       const accessToken = response.headers.get('access-token');
@@ -50,10 +83,11 @@ function LoginPage() {
       const expiry = response.headers.get('expiry');
       const uid = response.headers.get('uid');
 
-      console.log('Access Token:', accessToken);
-      console.log('Client:', client);
-      console.log('Expiry:', expiry);
-      console.log('UID:', uid);
+           // Store authentication information in local storage
+      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('client', client);
+      localStorage.setItem('expiry', expiry);
+      localStorage.setItem('uid', uid);
 
       // Store these values in your state or wherever is appropriate for your application
       // You may want to use a state management library or local storage
