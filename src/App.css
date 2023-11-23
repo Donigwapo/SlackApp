@@ -580,6 +580,7 @@ dialog {
   padding: 0;
   position: fixed;
   inset: 0;
+  height: 50vh;
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
   z-index: var(--layer-important);
@@ -778,11 +779,8 @@ button:focus, button:hover, button:active {
 }
 
 .slack {
-  width: 30%;
-  height: 100%;
   display: flex;
-  background-color: red;
-  flex-direction: row;
+  flex-direction: column;
 }
 @supports (display: grid) {
   .slack {
@@ -956,6 +954,7 @@ button:focus, button:hover, button:active {
 .channels__button span,
 .dm__button span {
   opacity: 0.7;
+  margin-left: 1rem;
 }
 .channels__button:before,
 .dm__button:before {
@@ -975,6 +974,7 @@ button:focus, button:hover, button:active {
 .channels__button:before {
   content: "#";
   opacity: 0.5;
+  margin-left: -3rem;
 }
 
 .dm__button:before {

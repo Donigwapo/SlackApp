@@ -13,6 +13,7 @@ import LoginPage from './pages/loginPage';
 import MessagePanel from './pages/MessagePanel';
 import AddDirectMessage from '@pages/AddDirectMessage';
 import { MessageProvider } from '@context/MessageContext';
+import Channel from '@channel/Channel';
   
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -84,6 +85,12 @@ const router = createBrowserRouter([
    
         ),
    
+      },
+      {
+        path: "channels/:channelName",
+        element: (
+          <Channel />
+        ),
       },
       
       

@@ -6,11 +6,19 @@ import { NavData } from "./NavData";
 import Dialog from "./Dialog";
 import { useMessageContext } from "@context/MessageContext";
 import { useEffect, useState } from 'react';
+import ChanelMessages from "@pages/ChanelMessages";
+import { useNavigate } from 'react-router-dom';
 const PanelNavbar = () => {
     <SlackThemePicker/>
     const { currentChannel } = useMessageContext();
     const [additionalChannels, setAdditionalChannels] = useState(new Set());
-    
+    const navigate = useNavigate();
+  
+    const linkStyle = {
+      textDecoration: 'none', // Remove underline
+      color: 'inherit', // Inherit the color from the parent
+      cursor: 'pointer', // Change the cursor to indicate it's clickable
+    };
 
     useEffect(() => {
       const storedChannels = JSON.parse(localStorage.getItem('additionalChannels')) || [];
@@ -30,10 +38,13 @@ const PanelNavbar = () => {
       }
     }, [currentChannel]);
 
+    const handleButtonClick = (channel) => {
+      navigate(`/message-panel/channels/${channel}`);
+    };
+    
   return (
     
     <div className="slack">
-            
       <nav className="teams">
         <ul className="teams__list">
           <li className="teams__item">
@@ -100,12 +111,16 @@ const PanelNavbar = () => {
         </button>
       </h2>
       <ul className="channels__list">
+      
       {Array.from(additionalChannels).map((channel, index) => (
+      
         <li key={index} className="channels__item">
-          <button className="channels__button"><span>{channel}</span></button>
+          <button className="channels__button" onClick={() => handleButtonClick(channel)}>
+          <span>{channel}</span></button> 
         </li>
-      ))}
         
+      ))}
+          
       </ul>
     </div>
     <div className="dm">
@@ -142,8 +157,10 @@ const PanelNavbar = () => {
     </div>
         {/* Add channels and DM sections as needed */}
       </div>
-   
+ 
     </div>
+
+   
   );
 };
 
