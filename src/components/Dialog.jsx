@@ -41,14 +41,16 @@ function Dialog() {
       if (response.ok) {
         const data = await response.json();
         setResponse('Channel created successfully');
-        console.log('New Channel:', data);
-        setChannel(data.data.name);
+      //  console.log('New Channel:', data);
+        console.log('Channel ID:', data.data.id);
+        setChannel(data.data.name, data.data.id);
+
       } else {
         const errorData = await response.json();
         setError(errorData.errors ? errorData.errors[0] : 'Unknown error');
       }
   
-      console.log('Full Response:', response);
+    //  console.log('Full Response:', response);
       
     } catch (error) {
       console.error('Error creating channel:', error);

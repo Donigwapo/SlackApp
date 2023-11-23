@@ -69,6 +69,18 @@ button {
   }
 }
 
+.hover-dialog {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 4px;
+  display: inline-block;
+  z-index: 1000;
+  color:#000
+}
+
+
 .slack {
   display: flex;
   flex-direction: column;

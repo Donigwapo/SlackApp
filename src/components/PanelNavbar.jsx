@@ -13,11 +13,16 @@ const PanelNavbar = () => {
     const { currentChannel } = useMessageContext();
     const [additionalChannels, setAdditionalChannels] = useState(new Set());
     const navigate = useNavigate();
+    const [isHoverDialogVisible, setIsHoverDialogVisible] = useState(false);
+    const [hoverDialogMessage, setHoverDialogMessage] = useState('');
   
-    const linkStyle = {
-      textDecoration: 'none', // Remove underline
-      color: 'inherit', // Inherit the color from the parent
-      cursor: 'pointer', // Change the cursor to indicate it's clickable
+    const handleMouseEnter = (message) => {
+      setHoverDialogMessage(message);
+      setIsHoverDialogVisible(true);
+    };
+    
+    const handleMouseLeave = () => {
+     setIsHoverDialogVisible(false);
     };
 
     useEffect(() => {
@@ -113,14 +118,24 @@ const PanelNavbar = () => {
       <ul className="channels__list">
       
       {Array.from(additionalChannels).map((channel, index) => (
-      
-        <li key={index} className="channels__item">
-          <button className="channels__button" onClick={() => handleButtonClick(channel)}>
-          <span>{channel}</span></button> 
-        </li>
-        
+      <li key={index} className="channels__item">
+        <button
+          className="channels__button"
+          onClick={() => handleButtonClick(channel)}
+          onMouseEnter={() => handleMouseEnter("I'm a button")}
+          onMouseLeave={handleMouseLeave}
+        >
+
+          <span>{channel}</span>
+        </button>
+      </li>
       ))}
-          
+
+    {isHoverDialogVisible && (
+    <div className="hover-dialog">{hoverDialogMessage}</div>
+
+    )}
+
       </ul>
     </div>
     <div className="dm">
