@@ -3,10 +3,33 @@ import SlackThemePicker from "./SlackThemePicker";
 import { IoIosAdd } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { NavData } from "./NavData";
-
+import Dialog from "./Dialog";
+import { useMessageContext } from "@context/MessageContext";
+import { useEffect, useState } from 'react';
 const PanelNavbar = () => {
     <SlackThemePicker/>
+    const { currentChannel } = useMessageContext();
+    const [additionalChannels, setAdditionalChannels] = useState(new Set());
     
+
+    useEffect(() => {
+      const storedChannels = JSON.parse(localStorage.getItem('additionalChannels')) || [];
+      setAdditionalChannels(new Set(storedChannels));
+    }, []);
+
+    useEffect(() => {
+      if (currentChannel) {
+        setAdditionalChannels(prevChannels => {
+          const updatedChannels = new Set([...prevChannels, currentChannel]);
+  
+          // Save additional channels to localStorage
+          localStorage.setItem('additionalChannels', JSON.stringify([...updatedChannels]));
+  
+          return updatedChannels;
+        });
+      }
+    }, [currentChannel]);
+
   return (
     
     <div className="slack">
@@ -73,25 +96,16 @@ const PanelNavbar = () => {
         <span>Channels <span className="channels__number">(16)</span>
         </span>
         <button className="ion-ios-plus-outline channels__add">
-        <IoIosAdd size={30}/>
+        <IoIosAdd size={30}/><Dialog/>
         </button>
       </h2>
       <ul className="channels__list">
-        <li className="channels__item">
-          <button className="channels__button"><span>general</span></button>
+      {Array.from(additionalChannels).map((channel, index) => (
+        <li key={index} className="channels__item">
+          <button className="channels__button"><span>{channel}</span></button>
         </li>
-        <li className="channels__item">
-          <button className="channels__button"><span>random</span></button>
-        </li>
-        <li className="channels__item">
-          <button className="channels__button"><span>self-defense</span></button>
-        </li>
-        <li className="channels__item">
-          <button className="channels__button"><span>charms</span></button>
-        </li>
-        <li className="channels__item">
-          <button className="channels__button"><span>potions</span></button>
-        </li>
+      ))}
+        
       </ul>
     </div>
     <div className="dm">

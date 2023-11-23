@@ -1,16 +1,21 @@
-import  { useEffect } from 'react';
+// DialogContext.jsx
+
+import { useEffect } from 'react';
 
 const DialogContext = () => {
   useEffect(() => {
     const handleDialogClick = () => {
-      if (window.innerWidth >= 768) window.MiniDialog.style.marginLeft = 'px';
-      window.MiniDialog.showModal();
+      const dialog = document.getElementById('MiniDialog');
+      dialog.showModal();
     };
-    handleDialogClick();
+
+    const button = document.querySelector('.ion-ios-plus-outline');
+    button.addEventListener('click', handleDialogClick);
+
     return () => {
-      document.querySelector('main').removeEventListener('click', handleDialogClick);
+      button.removeEventListener('click', handleDialogClick);
     };
-  }, []); 
+  }, []);
 
   return <></>; // You can customize the JSX based on your needs
 };

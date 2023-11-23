@@ -3,7 +3,6 @@ import { useState } from 'react';
 import DisplayMessage from '@components/DisplayMessage';
 import { useMessageContext } from '@context/MessageContext';
 const AddDirectMessage = () => {
-
 const { addMessage, messages } = useMessageContext();
   const [message, setMessage] = useState('');
   const [response, setResponse] = useState('');
@@ -16,7 +15,7 @@ const { addMessage, messages } = useMessageContext();
     const uid = localStorage.getItem('uid');
 
     const payload = {
-      receiver_id: 1,
+      receiver_id: 4571,
       receiver_class: 'User',
       body: message,
     };
@@ -38,9 +37,11 @@ const { addMessage, messages } = useMessageContext();
       if (response.ok) {
         const messageBody = data.data.body;
         //setResponse(data.data.body);
-        saveMessageToLocal(messageBody);
+        //saveMessageToLocal(messageBody);
         setResponse(messageBody);
         addMessage(messageBody);
+   
+
       } else {
         // If the response status is not ok, handle the error
         setError(data.errors ? data.errors[0] : 'Unknown error');
