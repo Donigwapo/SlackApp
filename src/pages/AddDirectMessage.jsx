@@ -4,6 +4,8 @@ import DisplayMessage from '@components/DisplayMessage';
 import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
 
+
+
 const AddDirectMessage = () => {
   const { addMessage, messages } = useMessageContext();
   const [message, setMessage] = useState('');
@@ -57,7 +59,7 @@ const AddDirectMessage = () => {
         setError(data.errors ? data.errors[0] : 'Unknown error');
       }
 
-      console.log('Full Response:', response);
+    
       
     } catch (error) {
       console.error('Error sending message:', error);
@@ -69,6 +71,7 @@ const AddDirectMessage = () => {
     <div className="pmContainer">
     <div className="headerDirect">
       <span> New Message </span>
+    
     </div>
     <div className="headerTo">
       <span>To:</span>
@@ -84,7 +87,7 @@ const AddDirectMessage = () => {
         ))}
       </select>
     </div>
-    <DisplayMessage />
+    <DisplayMessage recipientId={recipientId} />
     <div className="composeMessage">
       <label>
         Type your message:

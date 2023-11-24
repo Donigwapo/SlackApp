@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function LoginPage() {
 
   const [loginData, setLoginData] = useState({
@@ -74,6 +75,8 @@ function LoginPage() {
       }
 
       const result = await response.json();
+      const userEmail = result.data.email;
+      localStorage.setItem('email', userEmail);
       setUserData(result);
       navigate('/message-panel');
 
@@ -94,7 +97,7 @@ function LoginPage() {
 
     } catch (error) {
       setError(error.message);
-      console.error('Login failed:', error.message);
+      console.log('Login failed:', error.message);
     } finally {
       setLoading(false);
     }

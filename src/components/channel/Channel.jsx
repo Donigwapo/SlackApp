@@ -2,22 +2,11 @@
 import  { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMessageContext } from '@context/MessageContext';
-import ChannelDetails from './channel';
 
 const Channel = () => {
   const { channelName } = useParams();
   const { messages } = useMessageContext();
   const [channelMessages, setChannelMessages] = useState([]);
-
-  const [hoveredChannel, setHoveredChannel] = useState(null);
-
-  const handleMouseEnter = (channel) => {
-    setHoveredChannel(channel);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredChannel(null);
-  };
 
   useEffect(() => {
     // Filter messages based on the current channel
@@ -27,18 +16,21 @@ const Channel = () => {
 
   return (
     <div className="pmContainer">
-      <div className="headerDirect">
-      <h2>{channelName} Channel</h2>
+      <div className="channelsHeaders">
+      <button className="btn--outlineBlack">{channelName} Channel</button>
+      
+      <button className="btn--outlineBlack">View all members of this channel</button>
       <ul>
-        {channelMessages.map((message, index) => (
-          <li key={index}>{message.text}</li>
-        ))}
+       
       </ul>
       </div>
       <div className="headerTo">
         <span>To:</span>
       </div>
       <div className="composeMessage">
+      {channelMessages.map((message, index) => (
+          <li key={index}>{message.text}</li>
+        ))}
       <label>
           Type your message:
           <input

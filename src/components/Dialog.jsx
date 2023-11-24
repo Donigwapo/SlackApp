@@ -2,15 +2,19 @@
 
 import './App.css'
 import DialogContext from '@context/DialogContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMessageContext } from '@context/MessageContext';
+import UserList from '@users/UsersList';
 
 function Dialog() {
   const { setChannel } = useMessageContext();
   const [channelName, setChannelName] = useState('');
-  const [memberIds, setMemberIds] = useState('');
+
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
+  const [recipientId, setRecipientId] = useState('');
+  const [userOptions, setUserOptions] = useState([]);
+  const [selectedRecipients, setSelectedRecipients] = useState([]);
 
   const createChannel = async () => {
 
@@ -21,9 +25,11 @@ function Dialog() {
 
     const payload = {
       name: channelName,
-      user_ids: memberIds.split(',').map(memberId => parseInt(memberId.trim())),
+      user_ids: selectedRecipients,
     };
   
+ 
+    
     console.log('Request Payload:', JSON.stringify(payload));
   
     try {
@@ -41,22 +47,34 @@ function Dialog() {
       if (response.ok) {
         const data = await response.json();
         setResponse('Channel created successfully');
-      //  console.log('New Channel:', data);
+     
         console.log('Channel ID:', data.data.id);
         setChannel(data.data.name, data.data.id);
 
       } else {
         const errorData = await response.json();
         setError(errorData.errors ? errorData.errors[0] : 'Unknown error');
+        console.log('Validation Error:', errorData);
       }
   
-    //  console.log('Full Response:', response);
+
       
     } catch (error) {
-      console.error('Error creating channel:', error);
-      setError('Error creating channel');
+      setError(error.message);
+      console.log('Channel creating Failed:', error.message);
     }
   };
+
+  const onUsersFetched = (userData) => {
+    if (userData && userData.length > 0) {
+      setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
+    }
+  };
+  useEffect(() => {
+    // Fetch user data and set options when the component mounts
+    onUsersFetched([]); // Pass an empty array initially
+  }, []); // Empty dependency array to fetch users only once when the component mounts
+
   return (
     <>
       <div>
@@ -75,7 +93,18 @@ function Dialog() {
             <input type="text" placeholder="Channel Name:" value={channelName} onChange={(e) => setChannelName(e.target.value)}/>
           </section>  
           <section>
-          <input type="text" placeholder="Member Id's:"  value={memberIds}  onChange={(e) => setMemberIds(e.target.value)}/>
+         
+          </section>
+          <section>
+          <select multiple value={selectedRecipients} onChange={(e) => setSelectedRecipients(Array.from(e.target.selectedOptions, option => option.value))}>
+                  <UserList onUsersFetched={onUsersFetched} />
+                  <option value="" disabled>Select recipients</option>
+                  {userOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
           </section>
         </article>  
         <footer>

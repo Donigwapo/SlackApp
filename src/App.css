@@ -974,6 +974,7 @@ button:focus, button:hover, button:active {
 .channels__button:hover,
 .dm__button:hover {
   background: var(--hover-item, #BE0002);
+  padding-left: 4rem;
 }
 .channels__button--active, .channels__button--active:hover,
 .dm__button--active,
@@ -985,14 +986,13 @@ button:focus, button:hover, button:active {
 .channels__button:before {
   content: "#";
   opacity: 0.5;
-  margin-left: -3rem;
+  margin-left: -6rem;
 }
 
 .dm__button:before {
   content: "\f401";
-  margin-right: 3px;
-  font-family: "Ionicons";
   font-size: 0.6rem;
+  margin-left: -3rem;
 }
 .dm__button--online:before {
   content: "\f21b";
@@ -1246,4 +1246,9 @@ button:focus, button:hover, button:active {
   margin-top: auto; /* Add this line to push it to the bottom */
   margin-bottom: 5rem;
   margin-left: 5rem;
+}
+
+.channelsHeaders {
+  display: flex;
+  flex-direction: row;
 }/*# sourceMappingURL=App.css.map */

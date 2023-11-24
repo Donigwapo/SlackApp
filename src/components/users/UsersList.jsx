@@ -40,7 +40,7 @@ const UserList = ({onUsersFetched}) => {
           setError(errorData.errors ? errorData.errors[0] : 'Unknown error');
         }
 
-        console.log('Full Response:', response);
+  
 
       } catch (error) {
         console.error('Error fetching user list:', error);

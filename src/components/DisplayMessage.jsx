@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useMessageContext } from '@context/MessageContext';
-import UserList from '@users/UsersList';
 
-const DisplayMessage = () => {
+
+const DisplayMessage = ({ recipientId }) => {
   const { addMessage } = useMessageContext();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,75 +25,38 @@ const DisplayMessage = () => {
           return;
         }
 
-        const url1 = 'http://206.189.91.54/api/v1/messages?receiver_id=4578&receiver_class=User';
-        const url2 = 'http://206.189.91.54/api/v1/messages?receiver_id=4577&receiver_class=User'; // Your second URL
+        const apiUrl = `http://206.189.91.54/api/v1/messages?receiver_id=${recipientId}&receiver_class=User`;
 
-        const [response1, response2] = await Promise.all([
+        const response = await fetch(apiUrl, {
+          headers: {
+            'Content-Type': 'application/json',
+            'access-token': accessToken,
+            'client': client,
+            'uid': uid,
+          },
+        });
 
-          fetch(url1, {
-    
-            headers: {
-    
-              'Content-Type': 'application/json',
-              'access-token': accessToken,
-              'client': client,
-              'uid': uid,
-    
-            },
-    
-          }),
-    
-          fetch(url2, {
-    
-            headers: {
-    
-              'Content-Type': 'application/json',
-              'access-token': accessToken,
-              'client': client,
-              'uid': uid,
-    
-            },
-    
-          }),
-    
-        ]);
+        if (response.ok) {
+          const data = await response.json();
+          setMessages(data.data);
+        } else {
+          throw new Error('Failed to fetch messages');
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-
-    
-    if (response1.ok && response2.ok) {
-
-      const data1 = await response1.json();
-
-      const data2 = await response2.json();
-
-      // For demonstration, we combine messages from both responses
-
-      const combinedMessages = [...data1.data, ...data2.data];
-
-      setMessages(combinedMessages);
-
+    if (recipientId) {
+      fetchData();
     } else {
-
-      throw new Error('Failed to fetch messages from one or both endpoints');
-
+      // Clear messages if no recipient is selected
+      setMessages([]);
     }
-
-  } catch (error) {
-
-    console.error('Error fetching messages:', error);
-
-    setError(error.message);
-
-  } finally {
-
-    setLoading(false);
-
-  }
-
-};
-
-    fetchData();
-  }, []); // Empty dependency array to ensure it only runs once when the component mounts
+  }, [recipientId]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -105,6 +69,7 @@ const DisplayMessage = () => {
   return (
     <div className="messageDisplayContainer">
       <h2>Messages</h2>
+   
       <div className="messageList">
         {messages.map((message, index) => (
           <div key={index} className="messageItem">

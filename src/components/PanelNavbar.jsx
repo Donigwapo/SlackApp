@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import SlackThemePicker from "./SlackThemePicker";
 import { IoIosAdd } from 'react-icons/io';
@@ -8,13 +9,17 @@ import { useMessageContext } from "@context/MessageContext";
 import { useEffect, useState } from 'react';
 import ChanelMessages from "@pages/ChanelMessages";
 import { useNavigate } from 'react-router-dom';
+import ChannelList from "@channel/ChannelList";
 const PanelNavbar = () => {
     <SlackThemePicker/>
     const { currentChannel } = useMessageContext();
-    const [additionalChannels, setAdditionalChannels] = useState(new Set());
+    //const [additionalChannels, setAdditionalChannels] = useState(new Set());
     const navigate = useNavigate();
     const [isHoverDialogVisible, setIsHoverDialogVisible] = useState(false);
     const [hoverDialogMessage, setHoverDialogMessage] = useState('');
+    const userEmail = localStorage.getItem('email');
+    const [channels, setChannels] = useState([]);
+    const [additionalChannels, setAdditionalChannels] = useState(new Set());
   
     const handleMouseEnter = (message) => {
       setHoverDialogMessage(message);
@@ -25,28 +30,36 @@ const PanelNavbar = () => {
      setIsHoverDialogVisible(false);
     };
 
-    useEffect(() => {
-      const storedChannels = JSON.parse(localStorage.getItem('additionalChannels')) || [];
-      setAdditionalChannels(new Set(storedChannels));
-    }, []);
-
-    useEffect(() => {
-      if (currentChannel) {
-        setAdditionalChannels(prevChannels => {
-          const updatedChannels = new Set([...prevChannels, currentChannel]);
-  
-          // Save additional channels to localStorage
-          localStorage.setItem('additionalChannels', JSON.stringify([...updatedChannels]));
-  
-          return updatedChannels;
-        });
-      }
-    }, [currentChannel]);
-
     const handleButtonClick = (channel) => {
       navigate(`/message-panel/channels/${channel}`);
     };
+
+    useEffect(() => {
+
+      // TODO: Fetch the channel data
     
+      fetch('http://206.189.91.54/api/v1/channels') // This is an example API endpoint, replace with your actual endpoint
+    
+        .then(response => response.json())
+    
+        .then(data => {
+    
+          // Assuming the data is an array of channel objects
+    
+          setChannels(data);
+    
+        })
+    
+        .catch(error => {
+    
+          // Handle any errors that occurred during fetch
+    
+          console.error('Error fetching channels:', error);
+    
+        });
+    
+    }, []);
+
   return (
     
     <div className="slack">
@@ -99,7 +112,7 @@ const PanelNavbar = () => {
           <div className="team-menu__info">
             <h1 className="team-menu__name">Dumbledores Army</h1>
             <div className="team-menu__status">
-              <span className="team-menu__username">ramenhog</span>
+              <span className="team-menu__username">{userEmail}</span>
             </div>
           </div>
           <span className="team-menu__alarm ion-ios-bell-outline"></span>
@@ -107,29 +120,21 @@ const PanelNavbar = () => {
         <div className="threads">
           <span className="ion-chatbubble-working threads__icon"></span> All Threads
         </div>
+
         <div className="channels">
       <h2 className="channels__heading">
-        <span>Channels <span className="channels__number">(16)</span>
-        </span>
-        <button className="ion-ios-plus-outline channels__add">
-        <IoIosAdd size={30}/><Dialog/>
-        </button>
+       
       </h2>
       <ul className="channels__list">
+   
       
-      {Array.from(additionalChannels).map((channel, index) => (
-      <li key={index} className="channels__item">
-        <button
-          className="channels__button"
-          onClick={() => handleButtonClick(channel)}
-          onMouseEnter={() => handleMouseEnter("I'm a button")}
-          onMouseLeave={handleMouseLeave}
-        >
-
-          <span>{channel}</span>
-        </button>
-      </li>
-      ))}
+     <ChannelList
+    handleButtonClick={handleButtonClick}
+    handleMouseEnter={handleMouseEnter}
+    handleMouseLeave={handleMouseLeave}
+    channels={additionalChannels}
+  
+  />
 
     {isHoverDialogVisible && (
     <div className="hover-dialog">{hoverDialogMessage}</div>
@@ -140,7 +145,7 @@ const PanelNavbar = () => {
     </div>
     <div className="dm">
       <h2 className="dm__heading">
-        <span>DM <span className="dm__number">(29)</span>
+        <span>Direct Message <span className="dm__number">(29)</span>
         </span>
         <button className="ion-ios-plus-outline dm__add">
         {NavData.map((item) => {

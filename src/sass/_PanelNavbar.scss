@@ -103,6 +103,7 @@ button {
     flex-direction: column;
     align-items: center;
     height: 100%;
+ 
     
     background-color: rgba(#000, 0.4);
   }
@@ -278,6 +279,7 @@ button {
     
     &:hover {
       background: var(--hover-item, #BE0002);
+      padding-left: 4rem;
     }
     
     &--active,
@@ -294,7 +296,7 @@ button {
     &:before {
       content: "#";
       opacity: 0.5;
-      margin-left: -3rem;
+      margin-left: -6rem;
     }
   }
 }
@@ -303,9 +305,8 @@ button {
   &__button {
     &:before {
       content: "\f401";
-      margin-right: 3px;
-      font-family: "Ionicons";
       font-size: 0.6rem;
+      margin-left: -3rem;
     }
     
     &--online {
