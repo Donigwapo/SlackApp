@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import './App.css'
+import '@components/App.css'
 import DialogContext from '@context/DialogContext';
 import { useState, useEffect } from 'react';
 import { useMessageContext } from '@context/MessageContext';

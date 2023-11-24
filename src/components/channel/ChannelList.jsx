@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosAdd } from 'react-icons/io';
-import Dialog from "@components/Dialog";
+import Dialog from "@channel/Dialog";
 const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -61,15 +61,17 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   return (
     <div className="channels">
     <h2 className="channels__heading">
-    {channels && channels.length > 0 && (
-    <span>Channels <span className="channels__number">({channels.length})</span>
-    </span>)}
+    {channels && channels.length > 0 ? (
+    <span>Channels <span className="channels__number">({channels.length})</span></span>
+) : (
+    <span>Channel</span>
+)}
     
     <button className="ion-ios-plus-outline channels__add">
     <IoIosAdd size={30}/><Dialog/>
     </button>
   </h2>
-  {channels && channels.length > 0 && (
+  {channels && channels.length > 0 ? (
     <ul className="channels__list">
       {channels.map((channel, index) => (
         <li key={index} className="channels__item">
@@ -84,7 +86,9 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
         </li>
       ))}
     </ul>
-       )}
+) : (
+    <div>No channels available</div>
+)}
     </div>
   );
 };

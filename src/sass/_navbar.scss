@@ -279,6 +279,24 @@
 
 }
 
+.btn--channel{
+    background-color: transparent;
+    color: var(--blue-9);
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  transition: all 0.3s ease-out;
+  border: var(--border-size-2) solid var(--blue-5);
+  background-color: transparent;
+  border-radius: var(--radius-2);
+  &:hover, &:focus {
+    cursor: pointer;
+    color: var(--blue-0);
+    background-color: var(--blue-5);
+}
+}
+
+
 .btn--medium{
   padding: 8px 20px;
   margin-top: 2.5vh;

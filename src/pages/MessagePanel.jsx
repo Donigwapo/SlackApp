@@ -1,6 +1,6 @@
 import {  useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Dialog from '@components/Dialog';
+import Dialog from '@channel/Dialog';
 import PanelNavbar from '@components/PanelNavbar';
 import { Outlet } from 'react-router';
 

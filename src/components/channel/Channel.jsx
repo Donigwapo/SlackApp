@@ -17,7 +17,7 @@ const Channel = () => {
   return (
     <div className="pmContainer">
       <div className="channelsHeaders">
-      <button className="btn--outlineBlack">{channelName} Channel</button>
+      <button className="btn--channel">{channelName} Channel</button>
       
       <button className="btn--outlineBlack">View all members of this channel</button>
       <ul>
@@ -25,7 +25,7 @@ const Channel = () => {
       </ul>
       </div>
       <div className="headerTo">
-        <span>To:</span>
+        <span>To:<button>{channelName}&#9660;</button></span>
       </div>
       <div className="composeMessage">
       {channelMessages.map((message, index) => (

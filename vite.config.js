@@ -17,6 +17,7 @@ export default defineConfig({
       '@images': path.resolve(__dirname, 'src/images'),
       '@channel': path.resolve(__dirname, 'src/components/channel'),
       '@users': path.resolve(__dirname, 'src/components/users'),
+      '@button': path.resolve(__dirname, 'src/components/button'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       // Add more aliases as needed
     },

@@ -4,7 +4,7 @@ import SlackThemePicker from "./SlackThemePicker";
 import { IoIosAdd } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { NavData } from "./NavData";
-import Dialog from "./Dialog";
+//import Dialog from "@channel/Dialog";
 import { useMessageContext } from "@context/MessageContext";
 import { useEffect, useState } from 'react';
 import ChanelMessages from "@pages/ChanelMessages";
