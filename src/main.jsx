@@ -87,7 +87,7 @@ const router = createBrowserRouter([
    
       },
       {
-        path: "channels/:channelName",
+        path: "channels/:channelId/:channelName",
         element: (
           <Channel />
         ),

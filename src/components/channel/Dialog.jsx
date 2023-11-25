@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
 
+
 function Dialog() {
   const { setChannel } = useMessageContext();
   const [channelName, setChannelName] = useState('');
@@ -96,15 +97,16 @@ function Dialog() {
          
           </section>
           <section>
-          <select multiple value={selectedRecipients} onChange={(e) => setSelectedRecipients(Array.from(e.target.selectedOptions, option => option.value))}>
-                  <UserList onUsersFetched={onUsersFetched} />
-                  <option value="" disabled>Select recipients</option>
-                  {userOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+              <select multiple value={selectedRecipients} onChange={(e) => setSelectedRecipients(Array.from(e.target.selectedOptions, option => option.value))}>
+              <UserList onUsersFetched={onUsersFetched} />
+              <option value="" disabled>Select recipients</option>
+              {userOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  <input type="checkbox" defaultChecked={selectedRecipients.includes(option.value)} />
+                  {option.label}
+                </option>
+              ))}
+      </select>
           </section>
         </article>  
         <footer>

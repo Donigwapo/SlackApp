@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '@utils/spinner';
 
 
 function LoginPage() {
@@ -129,11 +130,11 @@ function LoginPage() {
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" value={loginData.password} onChange={handleChange} required className='inputStyle'/>
             <button style={{ visibility: 'hidden', opacity: 0, height: '20px'}}>Submit</button>
-            <button type="submit" className="submit">Submit
+            <button type="submit" className="submit">Submit<Spinner loading={loading} />
             <img src="https://www.svgrepo.com/download/166617/right-arrow.svg"  style={{fill: ''}} alt="Right Arrow" width="50" height="50" />
             </button>
 
-            {loading && <p>Loading...</p>}
+            
       {error && <p>Error: {error}</p>}
       {userData && <p>Login successful!</p>}
           </form> 

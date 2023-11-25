@@ -11,9 +11,8 @@ import ChanelMessages from "@pages/ChanelMessages";
 import { useNavigate } from 'react-router-dom';
 import ChannelList from "@channel/ChannelList";
 const PanelNavbar = () => {
-    <SlackThemePicker/>
-    const { currentChannel } = useMessageContext();
-    //const [additionalChannels, setAdditionalChannels] = useState(new Set());
+  
+   
     const navigate = useNavigate();
     const [isHoverDialogVisible, setIsHoverDialogVisible] = useState(false);
     const [hoverDialogMessage, setHoverDialogMessage] = useState('');
@@ -123,11 +122,11 @@ const PanelNavbar = () => {
 
         <div className="channels">
       <h2 className="channels__heading">
-       
-      </h2>
+      </h2> 
       <ul className="channels__list">
    
-      
+
+   
      <ChannelList
     handleButtonClick={handleButtonClick}
     handleMouseEnter={handleMouseEnter}
@@ -135,11 +134,11 @@ const PanelNavbar = () => {
     channels={additionalChannels}
   
   />
-
-    {isHoverDialogVisible && (
+         {isHoverDialogVisible && (
     <div className="hover-dialog">{hoverDialogMessage}</div>
 
     )}
+ 
 
       </ul>
     </div>
@@ -177,7 +176,7 @@ const PanelNavbar = () => {
     </div>
         {/* Add channels and DM sections as needed */}
       </div>
- 
+     
     </div>
 
    

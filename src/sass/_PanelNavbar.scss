@@ -11,7 +11,6 @@ $item-spacing: 8px;
   font-weight: 400;
   color: #555459;
   padding: 0 0.5rem;
-  font-family: "Consolas", monaco, courier, monospace;
 }
 
 :root {
@@ -35,7 +34,6 @@ body {
   width: 100%;
   height: 100%;
   font-size: 17px;
-  font-family: "Lato", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #555459;
   overflow: hidden;
@@ -67,7 +65,9 @@ button {
   &:active {
     outline: none;
   }
+ 
 }
+
 
 .hover-dialog {
   position: absolute;
@@ -77,8 +77,9 @@ button {
   border-radius: 4px;
   display: inline-block;
   z-index: 1000;
-  color:#000
+  color:#000;
 }
+
 
 
 .slack {

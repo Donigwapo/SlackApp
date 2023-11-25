@@ -87,7 +87,7 @@ const AddDirectMessage = () => {
         ))}
       </select>
     </div>
-    <DisplayMessage recipientId={recipientId} />
+    <DisplayMessage recipientId={recipientId} classType="User"  />
     <div className="composeMessage">
       <label>
         Type your message:

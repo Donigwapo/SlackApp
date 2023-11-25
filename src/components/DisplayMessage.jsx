@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMessageContext } from '@context/MessageContext';
 
 
-const DisplayMessage = ({ recipientId }) => {
+const DisplayMessage = ({ recipientId, classType }) => {
   const { addMessage } = useMessageContext();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const DisplayMessage = ({ recipientId }) => {
           return;
         }
 
-        const apiUrl = `http://206.189.91.54/api/v1/messages?receiver_id=${recipientId}&receiver_class=User`;
+        const apiUrl = `http://206.189.91.54/api/v1/messages?receiver_id=${recipientId}&receiver_class=${classType}`;
 
         const response = await fetch(apiUrl, {
           headers: {
@@ -56,10 +56,10 @@ const DisplayMessage = ({ recipientId }) => {
       // Clear messages if no recipient is selected
       setMessages([]);
     }
-  }, [recipientId]);
+  }, [recipientId, classType]);  
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Loading..</p>
   }
 
   if (error) {
@@ -68,8 +68,7 @@ const DisplayMessage = ({ recipientId }) => {
 
   return (
     <div className="messageDisplayContainer">
-      <h2>Messages</h2>
-   
+ 
       <div className="messageList">
         {messages.map((message, index) => (
           <div key={index} className="messageItem">

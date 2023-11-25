@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useEffect, useState } from 'react';
+import  { useEffect, useState, Fragment } from 'react';
 /*
 
 To dynamically populate the options in the <select> dropdown with the result from the UserList API,
@@ -52,9 +52,7 @@ const UserList = ({onUsersFetched}) => {
   }, [onUsersFetched]); // Empty dependency array to fetch users only once when the component mounts
 
   return (
-    <div className="userListContainer">
-      <h2>User List</h2>
-
+    <Fragment>
       {users.length > 0 ? (
         <ul>
           {users.map((user) => (
@@ -81,7 +79,8 @@ const UserList = ({onUsersFetched}) => {
           <strong>Error:</strong> {error}
         </div>
       )}
-    </div>
+   
+    </Fragment>
   );
 };
 

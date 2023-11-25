@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosAdd } from 'react-icons/io';
 import Dialog from "@channel/Dialog";
+import Spinner from '@utils/spinner';
+
+
 const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +51,7 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner loading={loading} />
   }
 
   if (error) {
@@ -56,11 +59,16 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   }
 
   const handleButtonClick = (channel) => {
-    navigate(`/message-panel/channels/${channel.name}`);
+    navigate(`/message-panel/channels/${channel.id}/${channel.name}`);
+   
   };
+
   return (
+    
     <div className="channels">
+   
     <h2 className="channels__heading">
+
     {channels && channels.length > 0 ? (
     <span>Channels <span className="channels__number">({channels.length})</span></span>
 ) : (
@@ -78,9 +86,10 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
           <button
             className="channels__button"
             onClick={() => handleButtonClick(channel)}
-            onMouseEnter={() => handleMouseEnter(`Channel: ${channel.name}`)}
+            onMouseEnter={() => handleMouseEnter(`${channel.id}`)}
             onMouseLeave={handleMouseLeave}
           >
+            
             <span>{channel.name}</span>
           </button>
         </li>
@@ -90,6 +99,7 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
     <div>No channels available</div>
 )}
     </div>
+   
   );
 };
 
