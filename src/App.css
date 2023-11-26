@@ -550,6 +550,13 @@ button:hover {
   justify-content: flex-start;
 }
 
+.messagesContainer {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  /* background-color: rgb(224, 214, 214);*/
+}
+
 .detailsContainer {
   display: flex;
   flex-direction: column;

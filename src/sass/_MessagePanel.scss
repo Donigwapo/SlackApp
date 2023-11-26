@@ -66,8 +66,12 @@ button:hover {
   display: flex;
   justify-content: flex-start;
 
+
 }
 
-.messageList{
- 
+.messagesContainer{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+ /* background-color: rgb(224, 214, 214);*/
 }

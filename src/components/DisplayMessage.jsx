@@ -56,7 +56,7 @@ const DisplayMessage = ({ recipientId, classType }) => {
       // Clear messages if no recipient is selected
       setMessages([]);
     }
-  }, [recipientId, classType]);  
+  }, [recipientId, classType, messages]);  
 
   if (loading) {
     return <p>Loading..</p>

@@ -14,6 +14,8 @@ const AddDirectMessage = () => {
   const [error, setError] = useState('');
   const [userOptions, setUserOptions] = useState([]); // State to store user options for the dropdown
 
+
+
   const onUsersFetched = (userData) => {
     if (userData && userData.length > 0) {
       setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
@@ -22,21 +24,30 @@ const AddDirectMessage = () => {
   useEffect(() => {
     // Fetch user data and set options when the component mounts
     onUsersFetched([]); // Pass an empty array initially
+    
+  const storedRecipientId = localStorage.getItem('recipientId');
+  if (storedRecipientId) {
+    setRecipientId(storedRecipientId);
+  }
+
   }, []); // Empty dependency array to fetch users only once when the component mounts
 
-
+ 
   const sendMessage = async () => {
+    localStorage.setItem('recipientId', recipientId);
     const apiUrl = 'http://206.189.91.54/api/v1/messages';
     const accessToken = localStorage.getItem('access-token');
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');
+
+   
 
     const payload = {
       receiver_id: recipientId,
       receiver_class: 'User',
       body: message,
     };
-
+   
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
