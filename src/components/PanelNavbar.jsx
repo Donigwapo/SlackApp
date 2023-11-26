@@ -5,9 +5,7 @@ import { IoIosAdd } from 'react-icons/io';
 import {Link} from 'react-router-dom';
 import { NavData } from "./NavData";
 //import Dialog from "@channel/Dialog";
-import { useMessageContext } from "@context/MessageContext";
 import { useEffect, useState } from 'react';
-import ChanelMessages from "@pages/ChanelMessages";
 import { useNavigate } from 'react-router-dom';
 import ChannelList from "@channel/ChannelList";
 const PanelNavbar = () => {
@@ -62,48 +60,7 @@ const PanelNavbar = () => {
   return (
     
     <div className="slack">
-      <nav className="teams">
-        <ul className="teams__list">
-          <li className="teams__item">
-            <button className="teams__button teams__button--active">DA</button>
-          </li>
-          <li className="teams__item">
-        <button className="teams__button">
-          SS
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          CS
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          PA
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          GF
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          OP
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          HP
-        </button>
-      </li>
-      <li className="teams__item">
-        <button className="teams__button">
-          DH
-        </button>
-      </li>
-        </ul>
-      </nav>
+  
       <div className="sidebar"
       >
 

@@ -35,7 +35,7 @@ export default function MessagePanel() {
      
       {/* Logout Button */}
 
-      <button onClick={handleLogout}>Logout</button>
+    
 
       {location.pathname === '/message-panel/create-alias' && <Dialog />}
     </div>

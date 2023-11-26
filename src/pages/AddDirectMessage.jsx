@@ -4,25 +4,25 @@ import DisplayMessage from '@components/DisplayMessage';
 import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
 
-
-
 const AddDirectMessage = () => {
   const { addMessage, messages } = useMessageContext();
-  const [message, setMessage] = useState('');
+  const [message, setMessageText] = useState('');
   const [recipientId, setRecipientId] = useState('');
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
   const [userOptions, setUserOptions] = useState([]); // State to store user options for the dropdown
-
+  const [loading, setLoading] = useState(false);
 
 
   const onUsersFetched = (userData) => {
     if (userData && userData.length > 0) {
       setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
     }
+    setLoading(false);
   };
   useEffect(() => {
     // Fetch user data and set options when the component mounts
+    setLoading(true); 
     onUsersFetched([]); // Pass an empty array initially
     
   const storedRecipientId = localStorage.getItem('recipientId');
@@ -34,6 +34,9 @@ const AddDirectMessage = () => {
 
  
   const sendMessage = async () => {
+    const currentMessage = message;
+    setMessageText('Sending...');
+    setLoading(true); 
     localStorage.setItem('recipientId', recipientId);
     const apiUrl = 'http://206.189.91.54/api/v1/messages';
     const accessToken = localStorage.getItem('access-token');
@@ -75,9 +78,14 @@ const AddDirectMessage = () => {
     } catch (error) {
       console.error('Error sending message:', error);
       setError('Error sending message');
+    }finally {
+      setMessageText(currentMessage);
+      setLoading(false); 
     }
+    setMessageText('');
   };
 
+ 
   return (
     <div className="pmContainer">
     <div className="headerDirect">
@@ -87,35 +95,37 @@ const AddDirectMessage = () => {
     <div className="headerTo">
       <span>To:</span>
       {/* Use the options from the state for the dropdown */}
-    
+     
       <select value={recipientId} onChange={(e) => setRecipientId(e.target.value)}>
-      <UserList onUsersFetched={onUsersFetched} />
-        <option value="" disabled>Select a recipient</option>
-        {userOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
-    <DisplayMessage recipientId={recipientId} classType="User"  />
-    <div className="composeMessage">
-      <label>
-        Type your message:
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </label>
-      <button onClick={sendMessage}>Send Message</button>
+      <option value="" disabled>
 
-      {response && (
-        <div style={{ marginTop: '10px' }}>
-          <strong>Response:</strong> {response}
-        </div>
-      )}
+  </option>
+      <UserList onUsersFetched={onUsersFetched} />
+          {userOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
     </div>
+  
+    <div className="messagesContainer">
+
+      <DisplayMessage recipientId={recipientId} classType="User" />
+
+      </div>
+
+  <div className="composeMessage">
+  <input
+    type="text"
+    value={message}
+    onChange={(e) => setMessageText(e.target.value)}
+    disabled={loading}
+  />
+  <button onClick={sendMessage} >
+    Send
+  </button>
+</div>
   </div>
 );
 };

@@ -554,7 +554,22 @@ button:hover {
   display: flex;
   height: 100vh;
   width: 100%;
-  /* background-color: rgb(224, 214, 214);*/
+  align-items: flex-start;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.message .speech-bubble {
+  background-color: Black;
+  color: var(--white);
+  padding: 0 20px;
+  border-radius: 40px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
 }
 
 .detailsContainer {
@@ -780,8 +795,7 @@ body {
   height: 100%;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
-  color: #555459;
-  overflow: hidden;
+  color: #f4f3f8;
 }
 
 h1,
@@ -823,6 +837,7 @@ button:focus, button:hover, button:active {
 .slack {
   display: flex;
   flex-direction: column;
+  width: 17.4%;
 }
 @supports (display: grid) {
   .slack {
@@ -928,15 +943,14 @@ button:focus, button:hover, button:active {
 }
 
 .sidebar {
-  position: relative;
-  z-index: 1;
-  width: 250px;
+  position: fixed;
+  width: 17.5%;
   background: var(--column-bg, #ae0001);
   color: var(--text-color, #fff);
-  padding-left: 1rem;
-  flex-grow: 0;
-  flex-shrink: 0;
-  z-index: 2;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 9;
+  left: 0;
 }
 
 .threads {
@@ -1244,39 +1258,82 @@ button:focus, button:hover, button:active {
   background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/60485/monument.png");
 }
 
+.messagesContainer::-webkit-scrollbar {
+  width: 12px; /* Adjust the width as needed */
+}
+
+/* Handle (thumb) */
+.messagesContainer::-webkit-scrollbar-thumb {
+  background: #888; /* Adjust thumb color as needed */
+  border-radius: 6px; /* Optional: add border-radius for rounded thumbs */
+}
+
+/* Handle on hover */
+.messagesContainer::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Adjust color on hover if needed */
+}
+
 .pmContainer {
   display: flex;
-  height: 100vh;
-  width: 100%;
-  background-color: gray;
   flex-direction: column;
+  background-color: gray;
+  width: 100%;
+}
+
+.messagesContainer {
+  flex-grow: 1; /* Makes the container take up the remaining space */
+  overflow-y: auto; /* Adds a scrollbar if content overflows */
+  margin-top: 7vh; /* Adjust if necessary to account for headerDirect height */
+  margin-bottom: 7vh; /* Adjust if necessary to account for headerTo height */
+  padding-bottom: 20vh; /* Adjust if necessary to account for composeMessage height */
+  margin-top: 14vh;
+  scrollbar-color: #888 #e0e0e0; /* thumb and track color */
+  scrollbar-width: thin;
 }
 
 .headerDirect {
+  position: fixed; /* Fixed positioning */
+  top: 0; /* Align to the top */
   height: 7vh;
   width: 100%;
   background-color: black;
   border-bottom: 1px solid white;
+  z-index: 10; /* Ensure it stays above the messages */
 }
 
 .headerTo {
+  position: fixed; /* Fixed positioning */
+  top: 7vh; /* Position it below the headerDirect */
   height: 7vh;
   width: 100%;
   background-color: rgb(3, 0, 0);
   border-bottom: 1px solid white;
+  z-index: 10; /* Same z-index to ensure it's above the messages */
 }
 
 .composeMessage {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   border-bottom: 1px solid white;
-  width: 50vw;
-  height: 10vh;
-  background-color: red;
+  width: 70%;
+  height: 20vh;
+  background-color: rgb(36, 34, 34);
   margin-top: auto; /* Add this line to push it to the bottom */
-  margin-bottom: 5rem;
-  margin-left: 5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin-left: 19rem;
+}
+
+.composeMessage input {
+  width: 90%;
+}
+
+.composeMessage button {
+  flex: 1;
+  text-align: center;
+  /* Take up all available space */
 }
 
 .channelsHeaders {

@@ -4,18 +4,66 @@ import { useParams } from 'react-router-dom';
 import { useMessageContext } from '@context/MessageContext';
 import ChannelMembersList from '@users/ChannelMembersList';
 import DisplayMessage from '../DisplayMessage';
+import UserList from '@users/UsersList';
 
 const Channel = () => {
   const { channelName, channelId } = useParams();
-  const { messages, addMessage } = useMessageContext();
+  const {  addMessage } = useMessageContext();
   const [messageText, setMessageText] = useState('');
-  const [firstChannelMemberId, setFirstChannelMemberId] = useState(null);
-  const [channelMembers, setChannelMembers] = useState([]);
+  const [userOptions, setUserOptions] = useState([]);
+  const [recipientId, setRecipientId] = useState('');
 
- 
+  const onUsersFetched = (userData) => {
+    if (userData && userData.length > 0) {
+      setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
+    }
 
-  const sendMessage = async () => {
+  };
+  useEffect(() => {
+    // Fetch user data and set options when the component mounts
  
+    onUsersFetched([]); 
+  }, []);
+
+
+  const addMember = async () => {
+    try {
+    const apiUrl = 'http://206.189.91.54/api/v1/channel/add_member';
+    const accessToken = localStorage.getItem('access-token');
+    const client = localStorage.getItem('client');
+    const uid = localStorage.getItem('uid');
+
+    const payload = {
+      id: channelId,
+      member_id: recipientId,
+    };
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'access-token': accessToken,
+        'client': client,
+        'uid': uid,
+      },
+      body: JSON.stringify(payload),
+    });
+    
+  if (response.ok) {
+    const data = await response.json();
+    console.log('Member added successfully:', data);
+  } else {
+    const errorData = await response.json();
+    console.error('Failed to add member:', errorData);
+  }
+} catch (error) {
+  console.error('Error adding member:', error.message);
+}
+ }
+
+
+   const sendMessage = async () => {
+
       try {
         const apiUrl = 'http://206.189.91.54/api/v1/messages';
         const accessToken = localStorage.getItem('access-token');
@@ -58,37 +106,46 @@ const Channel = () => {
     setMessageText('');
   };
 
-
-
   return (
     <div className="pmContainer">
-      <div className="channelsHeaders">
+      <div className="headerDirect">
         <button className="btn--channel">{channelName} Channel</button>
-        <button className="btn--outlineBlack">View all members of this channel</button>
-        <ul></ul>
       </div>
       <div className="headerTo">
         <button>
           <ChannelMembersList channelId={channelId} />
         </button>
+        <button>Add members</button> 
+
+        <select value={recipientId} onChange={(e) => {
+          setRecipientId(e.target.value);
+          addMember();
+        }}>
+      <option value="" disabled>
+  </option>
+      <UserList onUsersFetched={onUsersFetched} />
+          {userOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="messagesContainer">
-          
-    
+      <DisplayMessage recipientId={channelId} classType="Channel" />
+   
       </div>
 
-      <DisplayMessage recipientId={channelId} classType="Channel" />
+    
       <div className="composeMessage">
       
-        <label>
-          Type your message:
           <input
             type="text"
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
           />
-        </label>
-        <button onClick={sendMessage}>Send Message</button>
+     
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );

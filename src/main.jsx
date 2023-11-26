@@ -14,7 +14,7 @@ import MessagePanel from './pages/MessagePanel';
 import AddDirectMessage from '@pages/AddDirectMessage';
 import { MessageProvider } from '@context/MessageContext';
 import Channel from '@channel/Channel';
-import DisplayMessageMessengger from './pages/DisplayMessageMessenger.jsx';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "resources",
-        element: <DisplayMessageMessengger />,
+        element: <Resources />,
       },
       {
         path: "loginPage",

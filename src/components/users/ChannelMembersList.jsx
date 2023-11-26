@@ -52,7 +52,7 @@ const ChannelMembersList = ({ channelId }) => {
   return (
     <div className="channelMembersListContainer">
       <button onClick={openDialog}>
-        <h5>Channel Members &#9660;</h5>
+        <span>View Members &#9660;</span>
       </button>
 
       {channelData && isDialogOpen && (

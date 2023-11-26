@@ -35,8 +35,7 @@ body {
   height: 100%;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
-  color: #555459;
-  overflow: hidden;
+  color: #f4f3f8;
 }
 
 h1,
@@ -85,6 +84,8 @@ button {
 .slack {
   display: flex;
   flex-direction: column;
+  width:17.4%;
+  
   
   @supports (display: grid) {
     display: grid;
@@ -205,15 +206,14 @@ button {
 }
 
 .sidebar {
-  position: relative;
-  z-index: 1;
-  width: 250px;
+  position: fixed;
+  width: 17.5%;
   background: var(--column-bg, #ae0001);
   color: var(--text-color, $white);
-  padding-left:1rem;
-  flex-grow: 0;
-  flex-shrink: 0;
-  z-index: 2;
+  height: 100vh; 
+  overflow-y: auto;
+  z-index: 9;
+  left: 0;
 }
 
 .threads {
