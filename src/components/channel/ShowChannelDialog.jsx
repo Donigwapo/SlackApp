@@ -7,13 +7,12 @@ import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
 
 
-function Dialog() {
+function ShowChannelDialog() {
   const { setChannel } = useMessageContext();
   const [channelName, setChannelName] = useState('');
 
   const [response, setResponse] = useState('');
   const [error, setError] = useState('');
-  const [recipientId, setRecipientId] = useState('');
   const [userOptions, setUserOptions] = useState([]);
   const [selectedRecipients, setSelectedRecipients] = useState([]);
 
@@ -131,4 +130,4 @@ function Dialog() {
 
 
 
-export default Dialog
+export default ShowChannelDialog

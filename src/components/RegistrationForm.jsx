@@ -2,6 +2,7 @@ import { useState } from 'react';
 //import { Button } from './Button';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+//import Spinner from '@utils/spinner';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ const RegistrationForm = () => {
       // Check if the email and password are saved
       if (result && result.data.uid === formData.email) {
         console.log('Email and password saved successfully:', result);
-        navigate('/message-panel/create-alias');
+        navigate('/loginPage/create-alias');
       } else {
         console.error('Email and password not saved:', result);
       }
@@ -97,11 +98,11 @@ const RegistrationForm = () => {
           onClick={inputFieldClick}
         />
 
-        <button type="submit" className='btn--outlineBlack'>Register</button>
+        <button type="submit" className='btn--outlineBlack'onClick={inputFieldClick}>Register </button>
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && ""}
+      {error && <p>{error}</p>}
       {data && ""}
     </div>
   );

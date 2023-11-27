@@ -54,7 +54,7 @@ const BottomSheet = ({ handle_modal, triggerSemiFullyOpen }) => {
       onClick={divClick} // Change to onClick
     >
       <div>Signup to Connectwave
-       <RegistrationForm/>
+       <RegistrationForm onClick={handleInputClick}/>
       </div>
     </div>
   );

@@ -50,14 +50,13 @@ const router = createBrowserRouter([
     ],
   },
 
-/*
   {
-    path: "message-panel/create-alias",
+    path: "loginPage/create-alias",
     element: (
-        <MessagePanel />
+        <LoginPage />
     ),
   },
-
+/*
 {
   path: "send-message",
   element: (

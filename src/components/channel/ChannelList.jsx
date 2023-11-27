@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosAdd } from 'react-icons/io';
-import Dialog from "@channel/Dialog";
+import ShowChannelDialog from './ShowChannelDialog';
 import Spinner from '@utils/spinner';
 
 
@@ -11,6 +11,18 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+
+  const handleShowMore = () => {
+
+    const remainingChannelNames = channels.slice(10).map(channel => channel.name).join(', ');
+
+    // Display the names in an alert
+
+    alert(`Remaining channels: ${remainingChannelNames}`);
+
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,12 +88,12 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
 )}
     
     <button className="ion-ios-plus-outline channels__add">
-    <IoIosAdd size={30}/><Dialog/>
+    <IoIosAdd size={30}/><ShowChannelDialog/>
     </button>
   </h2>
   {channels && channels.length > 0 ? (
     <ul className="channels__list">
-      {channels.map((channel, index) => (
+      {channels.slice(0, 7).map((channel, index) => (
         <li key={index} className="channels__item">
           <button
             className="channels__button"
@@ -90,10 +102,18 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
             onMouseLeave={handleMouseLeave}
           >
             
-            <span>{channel.name}</span>
+            {channel.name.length > 10 ? `${channel.name.slice(0, 10)}...` : channel.name}
           </button>
         </li>
       ))}
+          { channels.length > 10 && (
+          <li className="channels__item">
+             <button onClick={handleShowMore} className="channels__more">
+           ......
+           </button>
+              </li>
+         )}
+
     </ul>
 ) : (
     <div>No channels available</div>

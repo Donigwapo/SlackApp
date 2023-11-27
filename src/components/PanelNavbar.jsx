@@ -8,6 +8,7 @@ import { NavData } from "./NavData";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChannelList from "@channel/ChannelList";
+import { Button } from "@button/Button";
 const PanelNavbar = () => {
   
    
@@ -29,6 +30,16 @@ const PanelNavbar = () => {
 
     const handleButtonClick = (channel) => {
       navigate(`/message-panel/channels/${channel}`);
+    };
+
+    const handleLogout = () => {
+
+      localStorage.removeItem('access-token');
+      localStorage.removeItem('client');
+      localStorage.removeItem('expiry');
+      localStorage.removeItem('uid');
+  
+      navigate('/');
     };
 
     useEffect(() => {
@@ -89,9 +100,10 @@ const PanelNavbar = () => {
     handleMouseEnter={handleMouseEnter}
     handleMouseLeave={handleMouseLeave}
     channels={additionalChannels}
-  
-  />
-         {isHoverDialogVisible && (
+    />
+
+
+   {isHoverDialogVisible && (
     <div className="hover-dialog">{hoverDialogMessage}</div>
 
     )}
@@ -128,8 +140,10 @@ const PanelNavbar = () => {
         <li className="dm__item">
           <button className="dm__button"><span>Hermoine Granger</span></button>
         </li>
-        
       </ul>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="logout-container">
+      <Button buttonStyle='btn--outline'onClick={handleLogout}>Log out</Button>
+    </div>
     </div>
         {/* Add channels and DM sections as needed */}
       </div>
