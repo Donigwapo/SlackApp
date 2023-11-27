@@ -20,42 +20,13 @@
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 1);
   }
-  
-  .bottom-sheet.closed {
-      transition: transform 1s ease-in-out;
-    height: 51px;
-  }
-  
-  .bottom-sheet.half-open {
-      transition: transform 1s ease-in-out;
-    height: 50%;
-  }
-  
-  
-  .bottom-sheet.semi-half-open {
-      transition: transform 1s ease-in-out;
-    height: 25%;
-  }
-  
-  
+
+
   .bottom-sheet.semi-fully-open {
       transition: transform 1s ease-in-out;
     height: 75%;
   }
   
-  .bottom-sheet.fully-open {
-      transition: transform 1s ease-in-out;
-    height: 100%;
-  }
-  
-  .uparrow:hover {
-    cursor: pointer;
-  }
-  .handle {
-    height: 20px;
-  }
-
-
 .bottom-sheet form label {
  font-size: 1rem;
  font-weight: 400;

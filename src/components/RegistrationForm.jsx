@@ -62,7 +62,7 @@ const RegistrationForm = () => {
       // Check if the email and password are saved
       if (result && result.data.uid === formData.email) {
         console.log('Email and password saved successfully:', result);
-        navigate('/loginPage/create-alias');
+        navigate('/loginPage');
       } else {
         console.error('Email and password not saved:', result);
       }

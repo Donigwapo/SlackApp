@@ -11,7 +11,7 @@
 }
 
 body {
-  background-color: rgb(207, 170, 170);
+  background-color: rgb(180, 176, 176);
 }
 
 :root {
@@ -424,37 +424,9 @@ h4 {
   border: 1px solid rgb(255, 255, 255);
 }
 
-.bottom-sheet.closed {
-  transition: transform 1s ease-in-out;
-  height: 51px;
-}
-
-.bottom-sheet.half-open {
-  transition: transform 1s ease-in-out;
-  height: 50%;
-}
-
-.bottom-sheet.semi-half-open {
-  transition: transform 1s ease-in-out;
-  height: 25%;
-}
-
 .bottom-sheet.semi-fully-open {
   transition: transform 1s ease-in-out;
   height: 75%;
-}
-
-.bottom-sheet.fully-open {
-  transition: transform 1s ease-in-out;
-  height: 100%;
-}
-
-.uparrow:hover {
-  cursor: pointer;
-}
-
-.handle {
-  height: 20px;
 }
 
 .bottom-sheet form label {

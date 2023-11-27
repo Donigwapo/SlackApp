@@ -14,6 +14,7 @@ import MessagePanel from './pages/MessagePanel';
 import AddDirectMessage from '@pages/AddDirectMessage';
 import { MessageProvider } from '@context/MessageContext';
 import Channel from '@channel/Channel';
+import SecuredRoute from '@components/SecuredRoute.jsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -44,18 +45,19 @@ const router = createBrowserRouter([
         element: <Resources />,
       },
       {
-        path: "loginPage",
-        element: <LoginPage />,
+        path: "loginPage",  
+        element: (
+       <SecuredRoute isPublicRoute={true}>
+
+        <LoginPage />
+        </SecuredRoute>
+        ),
+       
       },
     ],
   },
 
-  {
-    path: "loginPage/create-alias",
-    element: (
-        <LoginPage />
-    ),
-  },
+
 /*
 {
   path: "send-message",
@@ -70,25 +72,31 @@ const router = createBrowserRouter([
 
   {
     path: "/message-panel",
-    element: <MessagePanel />,
+    element: (
+      <SecuredRoute>
+    <MessagePanel />
+    </SecuredRoute>
+    ),
     children: [
       {
         index: true,
      
       },
       {
-        path: "send-message/",
+        path: "send-message/",  
         element: (
-      
+          <SecuredRoute>
             <AddDirectMessage />
-   
+            </SecuredRoute>
         ),
    
       },
       {
         path: "channels/:channelId/:channelName",
         element: (
+          <SecuredRoute>
           <Channel />
+          </SecuredRoute>
         ),
       },
       

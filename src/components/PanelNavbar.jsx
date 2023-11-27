@@ -18,6 +18,10 @@ const PanelNavbar = () => {
     const userEmail = localStorage.getItem('email');
     const [channels, setChannels] = useState([]);
     const [additionalChannels, setAdditionalChannels] = useState(new Set());
+
+    const getUsername = (email) => {
+      return email.split('@')[0];
+  };
   
     const handleMouseEnter = (message) => {
       setHoverDialogMessage(message);
@@ -31,6 +35,7 @@ const PanelNavbar = () => {
     const handleButtonClick = (channel) => {
       navigate(`/message-panel/channels/${channel}`);
     };
+
 
     const handleLogout = () => {
 
@@ -77,7 +82,7 @@ const PanelNavbar = () => {
 
         <button className="team-menu">
           <div className="team-menu__info">
-            <h1 className="team-menu__name">Dumbledores Army</h1>
+            <h1 className="team-menu__name">Hey, {getUsername(userEmail)}</h1>
             <div className="team-menu__status">
               <span className="team-menu__username">{userEmail}</span>
             </div>

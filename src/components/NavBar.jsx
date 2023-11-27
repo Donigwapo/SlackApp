@@ -12,6 +12,7 @@ export const HomeNavBar = () => {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+   const isLoggedIn = localStorage.getItem('access-token') && localStorage.getItem('client') && localStorage.getItem('uid');
 
   const showButton = () => {
  
@@ -31,7 +32,6 @@ export const HomeNavBar = () => {
   }, []);
 
   return (
-
     <>
       <nav className="navbar">
         <div className="navbar-container">
@@ -62,28 +62,30 @@ export const HomeNavBar = () => {
                 Resources 
               </Link>
             </li>
-            
           </ul>
-           {button && ( 
-              <>
+          {button && (
+            <>
               <div className='buttons1Container'>
-                <li className="buttons1">
-                  <Button buttonStyle='btn--outlineBlack' buttonSize='btn--medium2'>Sign up</Button>
-                </li>
-                <li className="buttons1">
-                  <Button to='/loginPage'buttonStyle='btn--outline'>Log in</Button>
-                </li>
-                </div>
-              </>
-
-            )}
-          <div className='otherButton'>
-          <Button buttonStyle='btn--primary'>Sign up</Button> 
-          <Button buttonStyle='btn--outline'>Log in</Button>
-            </div>
+                {isLoggedIn ? (
+                  <li className="buttons1">
+                    {/* Example: Link to user profile */}
+                    <Button to='/message-panel' buttonStyle='btn--outlineBlack' buttonSize='btn--medium2'>Profile</Button>
+                  </li>
+                ) : (
+                  <>
+                    <li className="buttons1">
+                      <Button buttonStyle='btn--outlineBlack' buttonSize='btn--medium2'>Sign up</Button>
+                    </li>
+                    <li className="buttons1">
+                      <Button to='/loginPage' buttonStyle='btn--outline'>Log in</Button>
+                    </li>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </nav>
     </>
-    
   );
 };

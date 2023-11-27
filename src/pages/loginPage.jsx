@@ -2,8 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '@utils/spinner';
-import { useLocation } from 'react-router-dom';
-import CreateAlias from '@components/CreateAlias';
 
 function LoginPage() {
   
@@ -16,11 +14,6 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log('Current Path:', location.pathname);
-  }, [location.pathname]);
 
   useEffect(() => {
     // Retrieve authentication information from local storage when the component mounts
@@ -123,7 +116,7 @@ function LoginPage() {
   return (
   
         <div className="loginContainer">
-           {location.pathname === '/loginPage/create-alias' && <CreateAlias />}
+      
           <div className='loginImage'>
             <img src="src/images/loginPic.png" alt="Working happy ever after."/>
         
