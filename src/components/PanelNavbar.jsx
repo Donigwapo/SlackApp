@@ -75,12 +75,13 @@ const PanelNavbar = () => {
 
   return (
     
-    <div className="slack">
+    <div className="slack" >
   
       <div className="sidebar"
       >
 
-        <button className="team-menu">
+        <button className="team-menu" >
+          
           <div className="team-menu__info">
             <h1 className="team-menu__name">Hey, {getUsername(userEmail)}</h1>
             <div className="team-menu__status">

@@ -11,10 +11,9 @@ export default function MessagePanel() {
 
   return (
     <div className='dashboard-container'>
-      <PanelNavbar/>
+       <PanelNavbar/>
       <Outlet/>
-     
 
-    </div>
+  </div> 
   );
 }

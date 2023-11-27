@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import DisplayMessage from '@components/DisplayMessage';
 import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
+import Spinner from '@utils/spinner';
 
 const AddDirectMessage = () => {
   const { addMessage, messages } = useMessageContext();
@@ -12,13 +13,51 @@ const AddDirectMessage = () => {
   const [error, setError] = useState('');
   const [userOptions, setUserOptions] = useState([]); // State to store user options for the dropdown
   const [loading, setLoading] = useState(false);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
 
   const onUsersFetched = (userData) => {
+
+    setLoading(true); // Set loading to true at the beginning of the fetch process
+
     if (userData && userData.length > 0) {
-      setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
+  
+      let processedUserData = userData;
+  
+      // Only apply the filter and sort if the checkbox is checked
+  
+      if (isCheckboxChecked) {
+  
+        const startDate = new Date("2023-10-01T07:31:20.010Z");
+  
+        processedUserData = processedUserData.filter(user => 
+  
+          new Date(user.created_at) >= startDate
+  
+        );
+  
+        processedUserData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+      }
+  
+      // Map user data to user options, after potential filtering and sorting
+  
+      const userOptions = processedUserData.map(user => ({
+  
+        value: user.id,
+  
+        label: user.email
+  
+        // Include created_at if needed: created_at: user.created_at
+  
+      }));
+  
+      setUserOptions(userOptions);
+  
     }
-    setLoading(false);
+  
+    setLoading(false); // Set loading to false at the end of the fetch process
+  
   };
   useEffect(() => {
     // Fetch user data and set options when the component mounts
@@ -107,6 +146,13 @@ const AddDirectMessage = () => {
             </option>
           ))}
         </select>
+  
+        <input
+          type="checkbox"
+          checked={isCheckboxChecked}
+          onChange={(e) => setIsCheckboxChecked(e.target.checked)}
+/>
+            <span>Tick if you want to Display accounts Created on: October 2023</span>
     </div>
   
     <div className="messagesContainer">

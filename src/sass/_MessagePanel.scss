@@ -60,11 +60,13 @@ button:hover {
   display: flex;
   min-width: 100%;
   min-height: 100vh;
+  background-color: red;
 }
 
 .messageDisplayContainer{
   display: flex;
   justify-content: flex-start;
+ 
 
 
 }
@@ -74,6 +76,7 @@ button:hover {
   height: 100vh;
   width: 100%;
 align-items: flex-start;
+
 
 }
 
@@ -95,6 +98,18 @@ align-items: flex-start;
   }
   
 
+  .mainContent{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+  }
   
-
+  
+	h1{
+		font-size: 40px;
+		transition-duration: 1s;
+		transition-timing-function: ease-in-put;
+		font-weight: 200;
+	}
  

@@ -20,18 +20,11 @@ const BottomSheet = ({ handle_modal, triggerSemiFullyOpen }) => {
 
   const divClick = () => {
 
-    if (position === "closed") {
-      handleSnap("semi-fully-open");
-    } else if (position === "semi-fully-open") {
+ if (position === "semi-fully-open") {
       handleSnap("closed");   
     }
   
   };
-
-  const handleInputClick = (e) => {
-    e.stopPropagation();
-  };
-
 
 
   useEffect(() => {
@@ -42,19 +35,14 @@ const BottomSheet = ({ handle_modal, triggerSemiFullyOpen }) => {
   }, [triggerSemiFullyOpen]);
 
 
-  const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    // Add other styles as needed
-  };
 
   return (
     <div
-      className={`bottom-sheet ${position} uparrow`}
+      className={`bottom-sheet ${position}`}
       onClick={divClick} // Change to onClick
     >
       <div>Signup to Connectwave
-       <RegistrationForm onClick={handleInputClick}/>
+       <RegistrationForm />
       </div>
     </div>
   );

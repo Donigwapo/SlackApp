@@ -434,19 +434,6 @@ h4 {
   font-weight: 400;
 }
 
-.input--default {
-  padding: 5px;
-  font-size: 16px;
-  border-width: 1px;
-  border-color: #CCCCCC;
-  background-color: #FFFFFF;
-  color: #000000;
-  border-style: solid;
-  border-radius: 0px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-  text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-}
-
 /* Dialog.css */
 .dialog {
   position: fixed;
@@ -515,6 +502,7 @@ button:hover {
   display: flex;
   min-width: 100%;
   min-height: 100vh;
+  background-color: red;
 }
 
 .messageDisplayContainer {
@@ -542,6 +530,20 @@ button:hover {
   border-radius: 40px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   max-width: 500px;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+h1 {
+  font-size: 40px;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-put;
+  font-weight: 200;
 }
 
 .detailsContainer {
@@ -1296,6 +1298,7 @@ button:focus, button:hover, button:active {
   bottom: 0;
   left: 0;
   margin-left: 19rem;
+  border-radius: 1rem;
 }
 
 .composeMessage input {
