@@ -18,7 +18,7 @@ $item-spacing: 8px;
   --menu-bg-hover: #680001;
   --active-item: #D3A625;
   --active-item-text: #680001;
-  --hover-item: #BE0002;
+  --hover-item: #3d80d6;
   --text-color: #FFFFFF;
   --active-presence: #00FFBA;
   --mention-badge: #DE4C0D;
@@ -169,7 +169,7 @@ button {
   padding: $padding $padding 0;
   
   &:hover {
-    background: var(--menu-bg-hover, #680001);
+    background: var(--menu-bg-hover, rgb(0, 89, 190)51, 190);
   }
   
   &__name {
@@ -208,10 +208,9 @@ button {
 .sidebar {
   position: fixed;
   width: 17.5%;
-  background: var(--column-bg, #ae0001);
+  background: #6fadf3;
   color: var(--text-color, $white);
   height: 100vh; 
-  overflow-y: auto;
   z-index: 9;
   left: 0;
 }
@@ -279,14 +278,14 @@ button {
     }
     
     &:hover {
-      background: var(--hover-item, #BE0002);
-      padding-left: 4rem;
+      background: var(--hover-item, rgb(0, 89, 190)51, 190);
+      padding-left: 5rem;
     }
     
     &--active,
     &--active:hover {
       background: var(--active-item, #D3A625);
-      color: var(--active-item-text, #680001);
+      color: var(--active-item-text, rgb(0, 89, 190)51, 190);
     }
     
   }
@@ -305,9 +304,9 @@ button {
 .dm {
   &__button {
     &:before {
-      content: "\f401";
+   
       font-size: 0.6rem;
-      margin-left: -3rem;
+      margin-left: -5rem;
     }
     
     &--online {
@@ -375,7 +374,7 @@ button {
     position: relative;
     top: 60px;
     height: calc(100vh - 60px);
-    overflow-y: scroll;
+  
   }
   
   &__container {

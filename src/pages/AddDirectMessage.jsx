@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import DisplayMessage from '@components/DisplayMessage';
-import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
-import Spinner from '@utils/spinner';
+import { toastError, toastSuccess } from "@utils/toastify";
+import { toast } from 'react-toastify';
 
 const AddDirectMessage = () => {
-  const { addMessage, messages } = useMessageContext();
   const [message, setMessageText] = useState('');
   const [recipientId, setRecipientId] = useState('');
   const [response, setResponse] = useState('');
@@ -14,17 +13,16 @@ const AddDirectMessage = () => {
   const [userOptions, setUserOptions] = useState([]); // State to store user options for the dropdown
   const [loading, setLoading] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-
+  const [recipientEmail, setRecipientEmail] = useState('');
+  const [messageSent,setMessageSent ] = useState(false);
+  const [sentEmails, setSentEmails] = useState([]);
 
   const onUsersFetched = (userData) => {
 
     setLoading(true); // Set loading to true at the beginning of the fetch process
 
     if (userData && userData.length > 0) {
-  
       let processedUserData = userData;
-  
-      // Only apply the filter and sort if the checkbox is checked
   
       if (isCheckboxChecked) {
   
@@ -38,18 +36,14 @@ const AddDirectMessage = () => {
   
         processedUserData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   
-      }
-  
-      // Map user data to user options, after potential filtering and sorting
-  
+      }else{
+        processedUserData.sort((a, b) => a.email.localeCompare(b.email));
+      } 
+
+
       const userOptions = processedUserData.map(user => ({
-  
         value: user.id,
-  
-        label: user.email
-  
-        // Include created_at if needed: created_at: user.created_at
-  
+        email: user.email
       }));
   
       setUserOptions(userOptions);
@@ -73,8 +67,24 @@ const AddDirectMessage = () => {
 
  
   const sendMessage = async () => {
+    toast.loading('Sending...');
+
+    if (!recipientId) {
+      toastError("Please select a recipient.");  
+      return; 
+    }
+
+    if (!message.trim()) {
+      toastError("Please enter a message.");  
+      return;  
+    }
+
+    setError('');
+
+
+
     const currentMessage = message;
-    setMessageText('Sending...');
+    
     setLoading(true); 
     localStorage.setItem('recipientId', recipientId);
     const apiUrl = 'http://206.189.91.54/api/v1/messages';
@@ -82,13 +92,13 @@ const AddDirectMessage = () => {
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');
 
-   
-
     const payload = {
       receiver_id: recipientId,
       receiver_class: 'User',
       body: message,
     };
+   
+   
    
     try {
       const response = await fetch(apiUrl, {
@@ -107,14 +117,15 @@ const AddDirectMessage = () => {
       if (response.ok) {
         const messageBody = data.data.body;
         setResponse(messageBody);
-        addMessage(messageBody);
+        toast.dismiss();
+        setSentEmails(prevEmails => [...prevEmails, recipientEmail]);  // push the recipient email to the sentEmails array after a successful message is sent
+        setMessageSent(true);//Use this to keep track the message if it sent or not use for displaying email if sent
       } else {
+        setMessageSent(false);
         setError(data.errors ? data.errors[0] : 'Unknown error');
       }
-
-    
-      
     } catch (error) {
+      setMessageSent(false);
       console.error('Error sending message:', error);
       setError('Error sending message');
     }finally {
@@ -124,25 +135,76 @@ const AddDirectMessage = () => {
     setMessageText('');
   };
 
- 
+  useEffect(() => {
+
+    const existingEmails = localStorage.getItem('sentEmails');
+  
+    if (existingEmails) {
+  
+      const parsedEmails = JSON.parse(existingEmails);
+  
+      if (parsedEmails.includes(recipientEmail)) {
+  
+        console.log('Email already exists in Local Storage.');
+  
+        return;
+  
+      }
+  
+    }
+  
+    if (recipientEmail) {
+
+      localStorage.setItem('sentEmails', JSON.stringify([...sentEmails, recipientEmail]));
+  
+    }
+    
+  
+  }, [recipientEmail]);
+
+
+  useEffect(() => {
+
+    const storedSentEmails = localStorage.getItem('sentEmails');
+  
+    if (storedSentEmails) {
+  
+      setSentEmails(JSON.parse(storedSentEmails));
+  
+    }
+  
+  }, []);
+
+
+
   return (
     <div className="pmContainer">
     <div className="headerDirect">
       <span> New Message </span>
-    
+     
     </div>
     <div className="headerTo">
       <span>To:</span>
       {/* Use the options from the state for the dropdown */}
      
-      <select value={recipientId} onChange={(e) => setRecipientId(e.target.value)}>
-      <option value="" disabled>
+      <select className="select" value={recipientId} onChange={(e) => {
 
+          const selectedIndex = e.target.selectedIndex;
+
+          const email = e.target.options[selectedIndex].getAttribute('data-email');
+
+          setRecipientId(e.target.value);
+
+          setRecipientEmail(email); // Store the email when selecting a recipient
+
+          }}>
+
+ <option value="" disabled>
   </option>
       <UserList onUsersFetched={onUsersFetched} />
           {userOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
+            <option key={option.value} value={option.value} data-email={option.email}>
+              {option.email}
             </option>
           ))}
         </select>
@@ -162,11 +224,14 @@ const AddDirectMessage = () => {
       </div>
 
   <div className="composeMessage">
-  <input
+  <textarea
+
     type="text"
     value={message}
     onChange={(e) => setMessageText(e.target.value)}
     disabled={loading}
+    rows={4}
+    wrap="soft" 
   />
   <button onClick={sendMessage} >
     Send

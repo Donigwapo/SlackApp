@@ -5,6 +5,8 @@ import { useMessageContext } from '@context/MessageContext';
 import ChannelMembersList from '@users/ChannelMembersList';
 import DisplayMessage from '../DisplayMessage';
 import UserList from '@users/UsersList';
+import { toastSuccess, toastError } from "@utils/toastify";
+import { toast } from 'react-toastify';
 
 const Channel = () => {
   const { channelName, channelId } = useParams();
@@ -12,6 +14,7 @@ const Channel = () => {
   const [messageText, setMessageText] = useState('');
   const [userOptions, setUserOptions] = useState([]);
   const [recipientId, setRecipientId] = useState('');
+  const [error, setError] = useState('');
 
   const onUsersFetched = (userData) => {
     if (userData && userData.length > 0) {
@@ -63,6 +66,15 @@ const Channel = () => {
 
 
    const sendMessage = async () => {
+
+  
+    if (!messageText.trim()) {
+      toastError("Please enter a message.");  
+      return;  
+    }
+
+    setError('');
+
 
       try {
         const apiUrl = 'http://206.189.91.54/api/v1/messages';

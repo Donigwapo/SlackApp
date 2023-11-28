@@ -41,7 +41,7 @@ export const toastSuccess = (text) => {
 export const toastError = (text) => {
   toast.error(text, {
     position: "top-center",
-    autoClose: 5000,
+    autoClose: 7000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,

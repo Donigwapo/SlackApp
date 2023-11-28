@@ -2,7 +2,7 @@ import { useState } from 'react';
 //import { Button } from './Button';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import Spinner from '@utils/spinner';
+
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -102,7 +102,7 @@ const RegistrationForm = () => {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      { <p>{error}</p>}
       {data && ""}
     </div>
   );

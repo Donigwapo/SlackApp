@@ -96,7 +96,7 @@ function ShowChannelDialog() {
          
           </section>
           <section>
-              <select multiple value={selectedRecipients} onChange={(e) => setSelectedRecipients(Array.from(e.target.selectedOptions, option => option.value))}>
+              <select className="select" multiple value={selectedRecipients} onChange={(e) => setSelectedRecipients(Array.from(e.target.selectedOptions, option => option.value))}>
               <UserList onUsersFetched={onUsersFetched} />
               <option value="" disabled>Select recipients</option>
               {userOptions.map((option) => (

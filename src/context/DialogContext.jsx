@@ -12,12 +12,10 @@ const DialogContext = () => {
     const button = document.querySelector('.ion-ios-plus-outline');
     button.addEventListener('click', handleDialogClick);
 
-    const button2 = document.querySelector('.ion-ios-plus-outline');
-    button2.addEventListener('click', handleDialogClick);
 
     return () => {
       button.removeEventListener('click', handleDialogClick);
-      button2.removeEventListener('click', handleDialogClick);
+      
     };
   }, []);
 

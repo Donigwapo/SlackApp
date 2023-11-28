@@ -30,8 +30,7 @@
     display: flex;
   
     flex-direction: column;
-  
-    background-color: gray;
+
     width: 100%;
   
   }
@@ -39,7 +38,7 @@
   .messagesContainer {
 
     flex-grow: 1; /* Makes the container take up the remaining space */
-  
+
     overflow-y: auto; /* Adds a scrollbar if content overflows */
   
     margin-top: 7vh; /* Adjust if necessary to account for headerDirect height */
@@ -50,9 +49,13 @@
     margin-top: 14vh;
 
     scrollbar-color: #888 #e0e0e0; /* thumb and track color */
-
+   
     scrollbar-width: thin;
+
+   
   }
+
+
 
 
 
@@ -65,9 +68,12 @@
 
     width: 100%;
 
-    background-color: black;
+    background-color: #6fadf3;
 
     border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
 
     z-index: 10; /* Ensure it stays above the messages */
 }
@@ -82,12 +88,16 @@
 
     width: 100%;
 
-    background-color: rgb(3, 0, 0);
+    background-color: #6fadf3;
 
     border-bottom: 1px solid white;
 
     z-index: 10; /* Same z-index to ensure it's above the messages */
 }
+.select{
+    background-color: #6fadf3;
+}
+
 
 .composeMessage {
     display: flex;
@@ -96,19 +106,23 @@
     border-bottom: 1px solid white;
     width: 70%;
     height: 20vh;
-    background-color: rgb(36, 34, 34);
+    background-color: rgb(212, 97, 97);
     margin-top: auto; /* Add this line to push it to the bottom */
     position: fixed;
     bottom: 0;
     left: 0;
     margin-left: 19rem;
     border-radius: 1rem;
-
+    overflow-wrap: break-word;
+    
   }
-  
-  .composeMessage input{
+
+
+  .composeMessage textarea{
     width: 90%;
-   
+    background-color: rgb(238, 129, 129);
+   word-break: break-all;
+
   }
   .composeMessage button {
     flex: 1;

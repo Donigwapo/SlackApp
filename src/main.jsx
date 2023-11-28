@@ -1,3 +1,6 @@
+import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-circular-progressbar/dist/styles.css';
+import { ToastContainer } from "react-toastify";
 
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -111,11 +114,11 @@ const router = createBrowserRouter([
 
 root.render(
   <>
-   
+  
     <MessageProvider>
    <DialogProvider>
     <RouterProvider router={router} />
-
+    <ToastContainer/>
     </DialogProvider>
     </MessageProvider>
 

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChannelList from "@channel/ChannelList";
 import { Button } from "@button/Button";
+import InboxList from "./InboxList";
 const PanelNavbar = () => {
   
    
@@ -98,9 +99,6 @@ const PanelNavbar = () => {
       <h2 className="channels__heading">
       </h2> 
       <ul className="channels__list">
-   
-
-   
      <ChannelList
     handleButtonClick={handleButtonClick}
     handleMouseEnter={handleMouseEnter}
@@ -113,44 +111,11 @@ const PanelNavbar = () => {
     <div className="hover-dialog">{hoverDialogMessage}</div>
 
     )}
- 
 
       </ul>
     </div>
-    <div className="dm">
-      <h2 className="dm__heading">
-        <span>Direct Message <span className="dm__number">(29)</span>
-        </span>
-        <button className="ion-ios-plus-outline dm__add">
-        {NavData.map((item) => {
-            return (
-              <Link
-                key={item.id}
-                className="side-item"
-                to={`${item.link}`}
-              >   
-              <i className="icons">{item.icon}</i>
-              </Link>
-              
-            );
-          })}
-        </button>
-      </h2>
-      <ul className="dm__list">
-        <li className="dm__item">
-          <button className="dm__button dm__button--slackbot"><span>slackbot</span></button>
-        </li>
-        <li className="dm__item">
-          <button className="dm__button dm__button--online"><span>Harry Potter</span></button>
-        </li>
-        <li className="dm__item">
-          <button className="dm__button"><span>Hermoine Granger</span></button>
-        </li>
-      </ul>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="logout-container">
-      <Button buttonStyle='btn--outline'onClick={handleLogout}>Log out</Button>
-    </div>
-    </div>
+    <InboxList/>
+
         {/* Add channels and DM sections as needed */}
       </div>
      
