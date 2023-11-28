@@ -26,7 +26,7 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = 'http://206.189.91.54/api/v1/channels';
+      const apiUrl = 'https://206.189.91.54/api/v1/channels';
       const accessToken = localStorage.getItem('access-token');
       const client = localStorage.getItem('client');
       const expiry = localStorage.getItem('expiry');

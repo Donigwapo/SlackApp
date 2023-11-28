@@ -33,7 +33,7 @@ const DisplayMessage = ({ recipientId, classType }) => {
           setError('Authentication tokens not found');
           return;
         }
-        const apiUrl = `http://206.189.91.54/api/v1/messages?receiver_id=${recipientId}&receiver_class=${classType}`;
+        const apiUrl = `https://206.189.91.54/api/v1/messages?receiver_id=${recipientId}&receiver_class=${classType}`;
         const response = await fetch(apiUrl, {
           headers: {
             'Content-Type': 'application/json',
@@ -124,9 +124,11 @@ const DisplayMessage = ({ recipientId, classType }) => {
             {limitedMessages.map((message, index) => (
                <Message key={index} type="" text={breakLine(message.body)} />
             ))}
+
           </>
         )}
       </div>
+      
     </div>
   );
 };

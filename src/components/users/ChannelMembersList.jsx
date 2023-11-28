@@ -8,7 +8,7 @@ const ChannelMembersList = ({ channelId }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    const apiUrl = `http://206.189.91.54/api/v1/channels/${channelId}`;
+    const apiUrl = `https://206.189.91.54/api/v1/channels/${channelId}`;
     const accessToken = localStorage.getItem('access-token');
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');

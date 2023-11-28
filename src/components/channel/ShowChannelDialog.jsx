@@ -18,7 +18,7 @@ function ShowChannelDialog() {
 
   const createChannel = async () => {
 
-    const apiUrl = 'http://206.189.91.54/api/v1/channels';
+    const apiUrl = 'https://206.189.91.54/api/v1/channels';
     const accessToken = localStorage.getItem('access-token');
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');
