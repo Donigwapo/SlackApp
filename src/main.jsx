@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { DialogProvider } from '@context/DialogRoutingContext';
+//import { DialogProvider } from '@context/DialogRoutingContext';
 import Home from '@pages/Home';
 import Resources from '@pages/Resources';
 import Product from '@pages/Product';
@@ -116,10 +116,10 @@ root.render(
   <>
   
     <MessageProvider>
-   <DialogProvider>
+   
     <RouterProvider router={router} />
     <ToastContainer/>
-    </DialogProvider>
+  
     </MessageProvider>
 
   

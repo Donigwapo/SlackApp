@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import SlackThemePicker from "./SlackThemePicker";
-import { IoIosAdd } from 'react-icons/io';
-import {Link} from 'react-router-dom';
-import { NavData } from "./NavData";
+
 //import Dialog from "@channel/Dialog";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChannelList from "@channel/ChannelList";
-import { Button } from "@button/Button";
+
 import InboxList from "./InboxList";
 const PanelNavbar = () => {
   

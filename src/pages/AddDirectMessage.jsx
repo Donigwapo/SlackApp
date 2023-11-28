@@ -13,9 +13,6 @@ const AddDirectMessage = () => {
   const [userOptions, setUserOptions] = useState([]); // State to store user options for the dropdown
   const [loading, setLoading] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-  const [recipientEmail, setRecipientEmail] = useState('');
-  const [messageSent,setMessageSent ] = useState(false);
-  const [sentEmails, setSentEmails] = useState([]);
 
   const onUsersFetched = (userData) => {
 
@@ -118,14 +115,14 @@ const AddDirectMessage = () => {
         const messageBody = data.data.body;
         setResponse(messageBody);
         toast.dismiss();
-        setSentEmails(prevEmails => [...prevEmails, recipientEmail]);  // push the recipient email to the sentEmails array after a successful message is sent
-        setMessageSent(true);//Use this to keep track the message if it sent or not use for displaying email if sent
+       
+     
       } else {
-        setMessageSent(false);
+      
         setError(data.errors ? data.errors[0] : 'Unknown error');
       }
     } catch (error) {
-      setMessageSent(false);
+   
       console.error('Error sending message:', error);
       setError('Error sending message');
     }finally {
@@ -135,45 +132,7 @@ const AddDirectMessage = () => {
     setMessageText('');
   };
 
-  useEffect(() => {
 
-    const existingEmails = localStorage.getItem('sentEmails');
-  
-    if (existingEmails) {
-  
-      const parsedEmails = JSON.parse(existingEmails);
-  
-      if (parsedEmails.includes(recipientEmail)) {
-  
-        console.log('Email already exists in Local Storage.');
-  
-        return;
-  
-      }
-  
-    }
-  
-    if (recipientEmail) {
-
-      localStorage.setItem('sentEmails', JSON.stringify([...sentEmails, recipientEmail]));
-  
-    }
-    
-  
-  }, [recipientEmail]);
-
-
-  useEffect(() => {
-
-    const storedSentEmails = localStorage.getItem('sentEmails');
-  
-    if (storedSentEmails) {
-  
-      setSentEmails(JSON.parse(storedSentEmails));
-  
-    }
-  
-  }, []);
 
 
 
@@ -194,8 +153,6 @@ const AddDirectMessage = () => {
           const email = e.target.options[selectedIndex].getAttribute('data-email');
 
           setRecipientId(e.target.value);
-
-          setRecipientEmail(email); // Store the email when selecting a recipient
 
           }}>
 

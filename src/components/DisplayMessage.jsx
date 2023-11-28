@@ -3,6 +3,7 @@
 import { useEffect, useState,useRef } from 'react';
 import { useMessageContext } from '@context/MessageContext';
 import Spinner from '@utils/spinner';
+import InboxList from './InboxList';
 const Message = ({ type, text }) => (
   <div className={`message ${type}`}>
     <div className="speech-bubble">
@@ -44,6 +45,7 @@ const DisplayMessage = ({ recipientId, classType }) => {
         if (response.ok) {
           const data = await response.json();
           setMessages(data.data);
+          console.log(data.data); 
         } else {
           throw new Error('Failed to fetch messages');
         }
@@ -88,10 +90,28 @@ const DisplayMessage = ({ recipientId, classType }) => {
 
   };
 
+  const sender = messages[0]?.sender; // Assuming messages[0] is the latest message
+
+  const receiver = messages[0]?.receiver; // Assuming messages[0] is the latest message
+
+  const senderEmail = sender ? sender.email : '';
+
+  const senderCreatedAt = sender ? sender.created_at : '';
+
+  const receiverEmail = receiver ? receiver.email : '';
+
+  const receiverCreatedAt = receiver ? receiver.created_at : '';
   
   return (
     <div className="messageDisplayContainer">
       <div className="messageList" >
+      <span>
+     
+              Sender email: {senderEmail} / Created at: {senderCreatedAt} <br />
+
+              Receiver email: {receiverEmail} / Created at: {receiverCreatedAt}
+
+            </span>
         {messages.length === 0 ? (
           <span>
             <h1>👋 Hello! This is your first message. Please follow the rules and guidelines.</h1>
