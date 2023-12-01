@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '@utils/spinner';
 
 function LoginPage() {
   
@@ -9,22 +8,20 @@ function LoginPage() {
     email: '', 
     password: '',
   });
-
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Retrieve authentication information from local storage when the component mounts
+   
     const storedAccessToken = localStorage.getItem('access-token');
     const storedClient = localStorage.getItem('client');
     const storedExpiry = localStorage.getItem('expiry');
     const storedUid = localStorage.getItem('uid');
 
-    // Check if all values are present in local storage
+    
     if (storedAccessToken && storedClient && storedExpiry && storedUid) {
-      // Set the authentication information in the state
+  
       setUserData({
         data: {
           id: null,
@@ -38,7 +35,7 @@ function LoginPage() {
         },
       });
 
-      // Log in console for verification
+
       console.log('Authentication information retrieved from local storage:', {
         accessToken: storedAccessToken,
         client: storedClient,
@@ -58,7 +55,7 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
 
     try {
       const response = await fetch('http://206.189.91.54/api/v1/auth/sign_in/', {
@@ -73,34 +70,44 @@ function LoginPage() {
         const errorData = await response.json();
         throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.errors[0]}`);
       }
-
+     
       const result = await response.json();
       const userEmail = result.data.email;
+       const userId = result.data.id;
+
+    // Get the existing selected data array from local storage, or initialize an empty array if it doesn't exist
+
+    const selectedData = JSON.parse(localStorage.getItem('selected-data')) || [];
+
+    // Push the new userId to the array
+
+    selectedData.push(userId);
+
+    // Save the updated array back to local storage
+
+    localStorage.setItem('selected-data', JSON.stringify(selectedData));
       localStorage.setItem('email', userEmail);
       setUserData(result);
       navigate('/message-panel');
 
-      // Access the authentication headers
+  
       const accessToken = response.headers.get('access-token');
       const client = response.headers.get('client');
       const expiry = response.headers.get('expiry');
       const uid = response.headers.get('uid');
 
-           // Store authentication information in local storage
+       
       localStorage.setItem('access-token', accessToken);
       localStorage.setItem('client', client);
       localStorage.setItem('expiry', expiry);
       localStorage.setItem('uid', uid);
 
-      // Store these values in your state or wherever is appropriate for your application
-      // You may want to use a state management library or local storage
+ 
 
     } catch (error) {
       setError(error.message);
       console.log('Login failed:', error.message);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
 
@@ -130,7 +137,7 @@ function LoginPage() {
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" value={loginData.password} onChange={handleChange} required className='inputStyle'/>
             <button style={{ visibility: 'hidden', opacity: 0, height: '20px'}}>Submit</button>
-            <button type="submit" className="submit">Submit<Spinner loading={loading} />
+            <button type="submit" className="submit">Submit
             <img src="https://www.svgrepo.com/download/166617/right-arrow.svg"  style={{fill: ''}} alt="Right Arrow" width="50" height="50" />
             </button>
 

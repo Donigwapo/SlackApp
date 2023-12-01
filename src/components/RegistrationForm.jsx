@@ -2,7 +2,8 @@ import { useState } from 'react';
 //import { Button } from './Button';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { toastSuccess, toastError } from '../utils/toastify';
+import { toast } from 'react-toastify';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -12,9 +13,9 @@ const RegistrationForm = () => {
   });
 
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -33,9 +34,9 @@ const RegistrationForm = () => {
   };
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
-  
+    e.preventDefault();
+
     try {
       const response = await fetch('http://206.189.91.54/api/v1/auth/', {
         method: 'POST',
@@ -49,8 +50,8 @@ const RegistrationForm = () => {
         const errorData = await response.json();
       console.log(`HTTP error! Status: ${response.status}`);
       console.log('Error Details:', errorData.errors.full_messages[0]);
-
-      throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.errors.full_messages[0]}`);
+      toast.dismiss();
+      toastError(`${errorData.errors.full_messages[0]}`);
       }
   
       const result = await response.json();
@@ -61,17 +62,24 @@ const RegistrationForm = () => {
   
       // Check if the email and password are saved
       if (result && result.data.uid === formData.email) {
-        console.log('Email and password saved successfully:', result);
+        toastSuccess("Registration Successfull")
+        toast.dismiss();
         navigate('/loginPage');
       } else {
-        console.error('Email and password not saved:', result);
+        toastError('Email and password not saved:', result);
+        
       }
     } catch (error) {
-      setError(error.message);
+     // setError(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  if (loading) {
+  toast.loading("Please Wait")
+  }
+
 
   const formStyle = {
     display: 'flex',
@@ -101,7 +109,7 @@ const RegistrationForm = () => {
         <button type="submit" className='btn--outlineBlack'onClick={inputFieldClick}>Register </button>
       </form>
 
-      {loading && <p>Loading...</p>}
+     
       { <p>{error}</p>}
       {data && ""}
     </div>

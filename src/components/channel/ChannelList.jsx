@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosAdd } from 'react-icons/io';
 import ShowChannelDialog from './ShowChannelDialog';
-import Spinner from '@utils/spinner';
+import { toast } from 'react-toastify';
 
 
-const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
+const ChannelList = () => {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -14,19 +14,14 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
 
 
   const handleShowMore = () => {
-
     const remainingChannelNames = channels.slice(10).map(channel => channel.name).join(', ');
-
-    // Display the names in an alert
-
     alert(`Remaining channels: ${remainingChannelNames}`);
-
   };
 
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = 'https://206.189.91.54/api/v1/channels';
+      const apiUrl = 'http://206.189.91.54/api/v1/channels';
       const accessToken = localStorage.getItem('access-token');
       const client = localStorage.getItem('client');
       const expiry = localStorage.getItem('expiry');
@@ -47,9 +42,11 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
         if (response.ok) {
           const data = await response.json();
           setChannels(data.data);
-       
+          toast.dismiss();
         } else {
+          toast.dismiss();
           throw new Error(`Failed to fetch channels: ${response.statusText}`);
+          
         }
       } catch (error) {
         console.error('Error fetching channels:', error);
@@ -63,7 +60,7 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
   }, []);
 
   if (loading) {
-    return <Spinner loading={loading} />
+    return toast.loading("Fetching Channels") 
   }
 
   if (error) {
@@ -98,8 +95,6 @@ const ChannelList = ({ handleMouseEnter, handleMouseLeave }) => {
           <button
             className="channels__button"
             onClick={() => handleButtonClick(channel)}
-            onMouseEnter={() => handleMouseEnter(`${channel.id}`)}
-            onMouseLeave={handleMouseLeave}
           >
             
             {channel.name.length > 10 ? `${channel.name.slice(0, 10)}...` : channel.name}

@@ -8,10 +8,6 @@ import './App.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //import { DialogProvider } from '@context/DialogRoutingContext';
 import Home from '@pages/Home';
-import Resources from '@pages/Resources';
-import Product from '@pages/Product';
-import Features from '@pages/Features';
-import Pricing from '@pages/Pricing';
 import LoginPage from './pages/loginPage';
 import MessagePanel from './pages/MessagePanel';
 import AddDirectMessage from '@pages/AddDirectMessage';
@@ -30,22 +26,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-      },
-      {
-        path: "productOverview",
-        element: <Product />,
-      },
-      {
-        path: "features",
-        element: <Features />,
-      },
-      {
-        path: "pricing",
-        element: <Pricing />,
-      },
-      {
-        path: "resources",
-        element: <Resources />,
       },
       {
         path: "loginPage",  

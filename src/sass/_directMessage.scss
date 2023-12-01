@@ -38,9 +38,8 @@
   .messagesContainer {
 
     flex-grow: 1; /* Makes the container take up the remaining space */
-
     overflow-y: auto; /* Adds a scrollbar if content overflows */
-  
+
     margin-top: 7vh; /* Adjust if necessary to account for headerDirect height */
   
     margin-bottom: 7vh; /* Adjust if necessary to account for headerTo height */
@@ -70,10 +69,7 @@
 
     background-color: #6fadf3;
 
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
-    border-left: 1px solid white;
-    border-top: 1px solid white;
+ 
 
     z-index: 10; /* Ensure it stays above the messages */
 }
@@ -89,10 +85,7 @@
     width: 100%;
 
     background-color: #6fadf3;
-
-    border-bottom: 1px solid white;
-
-    z-index: 10; /* Same z-index to ensure it's above the messages */
+  z-index: 10; /* Same z-index to ensure it's above the messages */
 }
 .select{
     background-color: #6fadf3;

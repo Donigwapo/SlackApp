@@ -11,7 +11,7 @@
 .navbar{
     position: fixed;
     top: 0;
-    background-color:white;
+    background-color: transparent;
     height: 10vh;
     width: 100%;
     display:flex;
@@ -19,7 +19,7 @@
     align-items: center;
     font-size: clamp(.8rem, 1vw, 1.2rem);
     white-space: nowrap;
-    border-bottom: 1px solid black;
+   
 }
 
 .navbar img{

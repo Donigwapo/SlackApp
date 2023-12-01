@@ -15,7 +15,7 @@ $item-spacing: 8px;
 
 :root {
   --column-bg: #ae0001;
-  --menu-bg-hover: #680001;
+  --menu-bg-hover:#3d80d6;
   --active-item: #D3A625;
   --active-item-text: #680001;
   --hover-item: #3d80d6;
@@ -213,6 +213,7 @@ button {
   height: 100vh; 
   z-index: 9;
   left: 0;
+
 }
 
 .threads {

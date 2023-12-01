@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMessageContext } from '@context/MessageContext';
-import ChannelMembersList from '@users/ChannelMembersList';
 import DisplayMessage from '../DisplayMessage';
 import UserList from '@users/UsersList';
 import { toastSuccess, toastError } from "@utils/toastify";
@@ -17,10 +16,19 @@ const Channel = () => {
   const [error, setError] = useState('');
 
   const onUsersFetched = (userData) => {
-    if (userData && userData.length > 0) {
-      setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
-    }
 
+    if (userData && userData.length > 0) {
+  
+      const startDate = new Date("2023-12-01T07:31:20.010Z");
+  
+      const processedUserData = userData.filter(user => new Date(user.created_at) >= startDate);
+  
+      processedUserData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+      setUserOptions(processedUserData.map(user => ({ value: user.id, label: user.email })));
+  
+    }
+  
   };
   useEffect(() => {
     // Fetch user data and set options when the component mounts
@@ -31,7 +39,7 @@ const Channel = () => {
 
   const addMember = async () => {
     try {
-    const apiUrl = 'https://206.189.91.54/api/v1/channel/add_member';
+    const apiUrl = 'http://206.189.91.54/api/v1/channel/add_member';
     const accessToken = localStorage.getItem('access-token');
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');
@@ -77,7 +85,7 @@ const Channel = () => {
 
 
       try {
-        const apiUrl = 'https://206.189.91.54/api/v1/messages';
+        const apiUrl = 'http://206.189.91.54/api/v1/messages';
         const accessToken = localStorage.getItem('access-token');
         const client = localStorage.getItem('client');
         const uid = localStorage.getItem('uid');
@@ -124,12 +132,9 @@ const Channel = () => {
         <button className="btn--channel">{channelName} Channel</button>
       </div>
       <div className="headerTo">
-        <button>
-          <ChannelMembersList channelId={channelId} />
-        </button>
         <button>Add members</button> 
 
-        <select value={recipientId} onChange={(e) => {
+        <select className="select" value={recipientId} onChange={(e) => {
           setRecipientId(e.target.value);
           addMember();
         }}>
@@ -151,7 +156,7 @@ const Channel = () => {
     
       <div className="composeMessage">
       
-          <input
+          <textarea
             type="text"
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}

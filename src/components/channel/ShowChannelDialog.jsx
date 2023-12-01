@@ -5,20 +5,19 @@ import DialogContext from '@context/DialogContext';
 import { useState, useEffect } from 'react';
 import { useMessageContext } from '@context/MessageContext';
 import UserList from '@users/UsersList';
+import { toastSuccess, toastError } from '../../utils/toastify';
 
 
 function ShowChannelDialog() {
   const { setChannel } = useMessageContext();
   const [channelName, setChannelName] = useState('');
-
-  const [response, setResponse] = useState('');
   const [error, setError] = useState('');
   const [userOptions, setUserOptions] = useState([]);
   const [selectedRecipients, setSelectedRecipients] = useState([]);
 
   const createChannel = async () => {
 
-    const apiUrl = 'https://206.189.91.54/api/v1/channels';
+    const apiUrl = 'http://206.189.91.54/api/v1/channels';
     const accessToken = localStorage.getItem('access-token');
     const client = localStorage.getItem('client');
     const uid = localStorage.getItem('uid');
@@ -29,7 +28,7 @@ function ShowChannelDialog() {
     };
   
  
-    
+    toastSuccess("Created channel successfully")
     console.log('Request Payload:', JSON.stringify(payload));
   
     try {
@@ -46,9 +45,8 @@ function ShowChannelDialog() {
   
       if (response.ok) {
         const data = await response.json();
-        setResponse('Channel created successfully');
-     
-        console.log('Channel ID:', data.data.id);
+        toastSuccess("Channel created successfully")
+        //console.log('Channel ID:', data.data.id);
         setChannel(data.data.name, data.data.id);
 
       } else {
@@ -56,8 +54,6 @@ function ShowChannelDialog() {
         setError(errorData.errors ? errorData.errors[0] : 'Unknown error');
         console.log('Validation Error:', errorData);
       }
-  
-
       
     } catch (error) {
       setError(error.message);
@@ -66,10 +62,21 @@ function ShowChannelDialog() {
   };
 
   const onUsersFetched = (userData) => {
+
     if (userData && userData.length > 0) {
-      setUserOptions(userData.map(user => ({ value: user.id, label: user.email })));
+  
+      const startDate = new Date("2023-12-01T07:31:20.010Z");
+  
+      const processedUserData = userData.filter(user => new Date(user.created_at) >= startDate);
+  
+      processedUserData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+      setUserOptions(processedUserData.map(user => ({ value: user.id, label: user.email })));
+  
     }
+  
   };
+
   useEffect(() => {
     // Fetch user data and set options when the component mounts
     onUsersFetched([]); // Pass an empty array initially
@@ -90,7 +97,7 @@ function ShowChannelDialog() {
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
             <p>Create Channel:</p>
-            <input type="text" placeholder="Channel Name:" value={channelName} onChange={(e) => setChannelName(e.target.value)}/>
+            <input className="select" type="text" placeholder="Channel Name:" value={channelName} onChange={(e) => setChannelName(e.target.value)}/>
           </section>  
           <section>
          
@@ -101,7 +108,6 @@ function ShowChannelDialog() {
               <option value="" disabled>Select recipients</option>
               {userOptions.map((option) => (
                 <option key={option.value} value={option.value}>
-                  <input type="checkbox" defaultChecked={selectedRecipients.includes(option.value)} />
                   {option.label}
                 </option>
               ))}

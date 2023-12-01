@@ -36,7 +36,7 @@ export const HomeNavBar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className='siteLogo'>
-            ConnectWave
+          
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -44,22 +44,22 @@ export const HomeNavBar = () => {
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             <li className="nav-item">
               <Link to="/productOverview" className="nav-links" onClick={closeMobileMenu}>
-                Product Overview
+     
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/features" className="nav-links" onClick={closeMobileMenu}>
-                Features
+            
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/pricing" className="nav-links" onClick={closeMobileMenu}>
-                Pricing
+             
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/resources" className="nav-links" onClick={closeMobileMenu}>
-                Resources 
+            
               </Link>
             </li>
           </ul>

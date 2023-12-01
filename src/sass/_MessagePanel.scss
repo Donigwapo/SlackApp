@@ -78,13 +78,26 @@ flex-direction: column;
 padding-top: -20rem;
 }
 
-  .message {
+.message {
     display: flex;
     align-items: flex-start;
  padding-top: 1rem;
-
+background-color: red;
+ flex-direction: row-reverse;
     
   }
+
+.message.outgoing {
+    flex-direction: row-reverse;
+    background-color: red;
+    }
+
+.user-sent {
+      /* Styles specific to messages sent by the user */
+      /* Add your custom styles here */
+      background-color: #aeeaff;
+      border: 1px solid #0077cc;
+    }
   
 
   .message .speech-bubble {
